@@ -1,4 +1,4 @@
-package br.edu.utfpr.app;
+package br.edu.utfpr.util;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
