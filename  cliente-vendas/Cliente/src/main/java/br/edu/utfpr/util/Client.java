@@ -13,7 +13,8 @@ public class Client {
 	static final int port = 56550;
 	static ObjectOutputStream oos;
 	static Socket client;
-    public static void enviarCliente(Cliente c) throws IOException{
+	
+    public static void enviarCliente(Cliente c) throws IOException{//método de teste para tentar enviar um cliente
     	try{
     		client = new Socket ( "localhost", port );
     		oos = new ObjectOutputStream( client.getOutputStream() );
