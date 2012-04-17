@@ -10,6 +10,8 @@ public class Vendedor implements IBean{
 	
 	private String nome;
 	
+	private String cpf;
+	
 	public Vendedor(){
 	}
 
@@ -27,5 +29,13 @@ public class Vendedor implements IBean{
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 }

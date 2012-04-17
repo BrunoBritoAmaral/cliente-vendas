@@ -11,6 +11,8 @@ public class Cliente implements IBean{
 	
 	private String nome;
 	
+	private String cpf;
+	
 	public Cliente(){}
 
 	public Long getId() {
@@ -27,6 +29,14 @@ public class Cliente implements IBean{
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 	
 	

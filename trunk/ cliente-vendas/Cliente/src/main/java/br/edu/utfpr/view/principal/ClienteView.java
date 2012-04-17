@@ -4,7 +4,7 @@
  */
 package br.edu.utfpr.view.principal;
 
-import javax.swing.JFrame;
+import javax.swing.ImageIcon;
 
 import br.edu.utfpr.app.beans.Cliente;
 import br.edu.utfpr.app.beans.Pedido;
@@ -44,6 +44,7 @@ public class ClienteView extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btCliente.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/user-icon.png")));
         btCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btCliente.setText("Cliente");
         btCliente.setPreferredSize(new java.awt.Dimension(75, 23));
@@ -53,6 +54,7 @@ public class ClienteView extends javax.swing.JFrame {
             }
         });
 
+        btVendedor.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/vendedor.png")));
         btVendedor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btVendedor.setText("Vendedor");
         btVendedor.setToolTipText("");
@@ -63,6 +65,7 @@ public class ClienteView extends javax.swing.JFrame {
             }
         });
 
+        jbProdutos.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/shopping.png")));
         jbProdutos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbProdutos.setText("Produtos");
         jbProdutos.addActionListener(new java.awt.event.ActionListener() {
@@ -71,6 +74,7 @@ public class ClienteView extends javax.swing.JFrame {
             }
         });
 
+        jbPedidos.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/pedido.png")));
         jbPedidos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbPedidos.setText("Pedidos");
         jbPedidos.addActionListener(new java.awt.event.ActionListener() {
@@ -111,6 +115,7 @@ public class ClienteView extends javax.swing.JFrame {
 
         jtdEndereco.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        btConectar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/connect.png")));
         btConectar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btConectar.setText("Conectar");
         btConectar.addActionListener(new java.awt.event.ActionListener() {
@@ -119,6 +124,7 @@ public class ClienteView extends javax.swing.JFrame {
             }
         });
 
+        btSair.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/exit.png")));
         btSair.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
