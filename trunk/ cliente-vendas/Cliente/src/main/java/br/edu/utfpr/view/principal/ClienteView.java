@@ -6,10 +6,10 @@ package br.edu.utfpr.view.principal;
 
 import javax.swing.ImageIcon;
 
-import br.edu.utfpr.app.beans.Cliente;
-import br.edu.utfpr.app.beans.Pedido;
-import br.edu.utfpr.app.beans.Produto;
-import br.edu.utfpr.app.beans.Vendedor;
+import br.edu.utfpr.app.dto.Cliente;
+import br.edu.utfpr.app.dto.Pedido;
+import br.edu.utfpr.app.dto.Produto;
+import br.edu.utfpr.app.dto.Vendedor;
 import br.edu.utfpr.util.Client;
 import br.edu.utfpr.util.TipoCadastro;
 import br.edu.utfpr.view.abstracts.AbstractCadastroView;
@@ -21,7 +21,7 @@ import br.edu.utfpr.view.abstracts.AbstractCadastroView;
 public class ClienteView extends javax.swing.JFrame {
     
 	public ClienteView() {
-    	Client.estabelecerConexao();
+//    	Client.estabelecerConexao();
         initComponents();
     }
 

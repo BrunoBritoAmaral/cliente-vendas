@@ -1,4 +1,4 @@
-package br.edu.utfpr.app.beans;
+package br.edu.utfpr.app.dto;
 
 import java.util.List;
 
