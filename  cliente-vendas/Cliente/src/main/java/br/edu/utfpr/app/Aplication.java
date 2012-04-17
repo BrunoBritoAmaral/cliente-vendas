@@ -8,7 +8,8 @@ public class Aplication {
     public static void main(String args[]) {
     	try {
         	Client c = new Client();
-        	c.estabelecerConexao();
+        	
+//        	c.estabelecerConexao();
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());

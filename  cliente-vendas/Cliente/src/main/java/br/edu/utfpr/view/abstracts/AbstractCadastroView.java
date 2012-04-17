@@ -7,9 +7,9 @@ package br.edu.utfpr.view.abstracts;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import br.edu.utfpr.app.beans.Cliente;
-import br.edu.utfpr.app.beans.Produto;
-import br.edu.utfpr.app.beans.Vendedor;
+import br.edu.utfpr.app.dto.Cliente;
+import br.edu.utfpr.app.dto.Produto;
+import br.edu.utfpr.app.dto.Vendedor;
 import br.edu.utfpr.util.IBean;
 import br.edu.utfpr.util.Mensagem;
 import br.edu.utfpr.util.TipoCadastro;
