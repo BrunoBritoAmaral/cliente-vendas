@@ -4,13 +4,18 @@
  */
 package br.edu.utfpr.view.principal;
 
+import javax.swing.JFrame;
+
+import br.edu.utfpr.util.Client;
+
 /**
  *
  * @author Luan
  */
 public class ClienteView extends javax.swing.JFrame {
-
-    public ClienteView() {
+    
+	public ClienteView() {
+    	Client.estabelecerConexao();
         initComponents();
     }
 
@@ -152,7 +157,7 @@ public class ClienteView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btClienteActionPerformed
-        // TODO add your handling code here:
+        new ClienteGerenciaView().setVisible(true);
     }//GEN-LAST:event_btClienteActionPerformed
 
     private void btVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVendedorActionPerformed
@@ -168,11 +173,11 @@ public class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_jbPedidosActionPerformed
 
     private void btConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConectarActionPerformed
-        // TODO add your handling code here:
+        System.out.println("Tentando conectar!");
     }//GEN-LAST:event_btConectarActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_btSairActionPerformed
 
     
