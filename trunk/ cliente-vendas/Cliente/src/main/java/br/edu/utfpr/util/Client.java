@@ -6,7 +6,7 @@ import java.net.InetAddress;
 
 public class Client {
     
-	public static void estabelecerConexao(){//método de teste de conexão
+	public static void estabelecerConexao(){//método de teste de conexão da
     	try{
             InetAddress addr = InetAddress.getByName("localhost");
             int port = Integer.parseInt("56550");
