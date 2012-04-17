@@ -6,7 +6,12 @@ package br.edu.utfpr.view.principal;
 
 import javax.swing.JFrame;
 
+import br.edu.utfpr.app.beans.Cliente;
+import br.edu.utfpr.app.beans.Pedido;
+import br.edu.utfpr.app.beans.Produto;
+import br.edu.utfpr.app.beans.Vendedor;
 import br.edu.utfpr.util.Client;
+import br.edu.utfpr.util.TipoCadastro;
 
 /**
  *
@@ -157,19 +162,19 @@ public class ClienteView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btClienteActionPerformed
-        new ClienteGerenciaView().setVisible(true);
+        new AbstractCadastroView<Cliente>(TipoCadastro.CLIENTE).setVisible(true);
     }//GEN-LAST:event_btClienteActionPerformed
 
     private void btVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVendedorActionPerformed
-        // TODO add your handling code here:
+    	new AbstractCadastroView<Vendedor>(TipoCadastro.VENDEDOR).setVisible(true);
     }//GEN-LAST:event_btVendedorActionPerformed
 
     private void jbProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbProdutosActionPerformed
-        // TODO add your handling code here:
+    	new AbstractCadastroView<Produto>(TipoCadastro.PRODUTO).setVisible(true);
     }//GEN-LAST:event_jbProdutosActionPerformed
 
     private void jbPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPedidosActionPerformed
-        // TODO add your handling code here:
+    	new AbstractCadastroView<Pedido>(TipoCadastro.PEDIDO).setVisible(true);
     }//GEN-LAST:event_jbPedidosActionPerformed
 
     private void btConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConectarActionPerformed
@@ -177,7 +182,7 @@ public class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_btConectarActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-       
+       System.exit(0);
     }//GEN-LAST:event_btSairActionPerformed
 
     
