@@ -12,6 +12,7 @@ import br.edu.utfpr.app.beans.Produto;
 import br.edu.utfpr.app.beans.Vendedor;
 import br.edu.utfpr.util.Client;
 import br.edu.utfpr.util.TipoCadastro;
+import br.edu.utfpr.view.abstracts.AbstractCadastroView;
 
 /**
  *
