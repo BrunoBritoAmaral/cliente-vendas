@@ -1,4 +1,9 @@
 package br.edu.utfpr.view.principal;
+
+import java.io.IOException;
+
+import br.edu.utfpr.pojo.Cliente;
+import br.edu.utfpr.util.Client;
 	/*
 	 * To change this template, choose Tools | Templates
 	 * and open the template in the editor.
@@ -26,11 +31,9 @@ package br.edu.utfpr.view.principal;
 	    // <editor-fold defaultstate="collapsed" desc="Generated Code">
 	    private void initComponents() {
 
-	        jTextField1 = new javax.swing.JTextField();
-	        jTextField4 = new javax.swing.JTextField();
 	        jLabel1 = new javax.swing.JLabel();
 	        jPanel1 = new javax.swing.JPanel();
-	        jTextField2 = new javax.swing.JTextField();
+	        jTextField2 = new javax.swing.JTextField();//TEXTO DO NOME, ESQUECI DE EDITA OS NOMES NO NETBEANS
 	        jButton1 = new javax.swing.JButton();
 	        label1 = new java.awt.Label();
 	        jLabel2 = new javax.swing.JLabel();
@@ -39,7 +42,7 @@ package br.edu.utfpr.view.principal;
 
 	        jTextField4.setText("jTextField4");
 
-	        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+	        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
 	        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 	        jLabel1.setText("Gerência de Clientes");
@@ -49,7 +52,12 @@ package br.edu.utfpr.view.principal;
 	        jButton1.setText("Salvar");
 	        jButton1.addActionListener(new java.awt.event.ActionListener() {
 	            public void actionPerformed(java.awt.event.ActionEvent evt) {
-	                jButton1ActionPerformed(evt);
+	                try {
+						jButton1ActionPerformed(evt);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 	            }
 	        });
 
@@ -115,8 +123,10 @@ package br.edu.utfpr.view.principal;
 	        pack();
 	    }// </editor-fold>
 
-	    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-	        // TODO add your handling code here:
+	    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {//botão cadastrar
+	        Cliente c = new Cliente(jTextField2.getText());
+	        System.out.println(jTextField2.getText());
+	        Client.enviarCliente(c);
 	    }
 
 	    /**
