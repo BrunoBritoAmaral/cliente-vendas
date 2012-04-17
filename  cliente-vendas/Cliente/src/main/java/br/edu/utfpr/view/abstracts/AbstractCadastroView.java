@@ -4,7 +4,14 @@
  */
 package br.edu.utfpr.view.abstracts;
 
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
+import br.edu.utfpr.app.beans.Cliente;
+import br.edu.utfpr.app.beans.Produto;
+import br.edu.utfpr.app.beans.Vendedor;
 import br.edu.utfpr.util.IBean;
+import br.edu.utfpr.util.Mensagem;
 import br.edu.utfpr.util.TipoCadastro;
 
 /**
@@ -13,35 +20,52 @@ import br.edu.utfpr.util.TipoCadastro;
  */
 public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame {
 
-    TipoCadastro tipoCadastro;
+    TipoCadastro tipoCadastro;  
+    POJO selecionado = null;
 	
 	public AbstractCadastroView(TipoCadastro tipoCadastro) {
         this.tipoCadastro = tipoCadastro;
 		initComponents();
-		configuraTela();
+		populaTela();
     }
 	
-	public void configuraTela(){
+	public void populaTela(){
 		switch (tipoCadastro) {
 		case CLIENTE:
 			jlCampo1.setText("Nome:");
 			jlCampo2.setText("CPF:");
+			
+			Cliente cliente = (Cliente) selecionado;
+			jtCampo1.setText(cliente == null? "" : cliente.getNome());
+			jtCampo2.setText(cliente == null? "" : cliente.getCpf());
 			break;
+			
 		case VENDEDOR:
 			jlCampo1.setText("Nome:");
 			jlCampo2.setText("CPF:");
+			
+			Vendedor vendedor = (Vendedor) selecionado;
+			jtCampo1.setText(vendedor == null? "" : vendedor.getNome());
+			jtCampo2.setText(vendedor == null? "" : vendedor.getCpf());
 			break;
+			
 		case PRODUTO:
 			jlCampo1.setText("Descrição:");
 			jlCampo2.setText("Preço:");
+			
+			Produto produto = (Produto) selecionado;
+			jtCampo1.setText(produto == null? "" : produto.getDescricao());
+			jtCampo2.setText(produto == null? "" : String.valueOf(produto.getPreco()));
 			break;
-		case PEDIDO:
-			jlCampo1.setText("Descrição:");
-			jlCampo2.setText("Quantidade:");
-			break;
+			
 		default:
 			break;
 		}
+	}
+	
+	public void atualizaSelecionado(POJO selecionado){
+		this.selecionado = selecionado;
+		populaTela();
 	}
     
     @SuppressWarnings("unchecked")
@@ -63,6 +87,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
         painelBotoes.setBackground(new java.awt.Color(255, 255, 255));
         painelBotoes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jbNovo.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/new.png")));
         jbNovo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbNovo.setText("Novo");
         jbNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -71,6 +96,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
             }
         });
 
+        btSalvar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/save.png")));
         btSalvar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btSalvar.setText("Salvar");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -78,7 +104,8 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
                 btSalvarActionPerformed(evt);
             }
         });
-
+        
+        jbPesquisar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/search-icon.png")));
         jbPesquisar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbPesquisar.setText("Pesquisar");
         jbPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -97,7 +124,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         painelBotoesLayout.setVerticalGroup(
@@ -178,18 +205,47 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
-        // TODO add your handling code here:
+        atualizaSelecionado(null);
     }//GEN-LAST:event_jbNovoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        // TODO add your handling code here:
+    	if(!validaCampos())
+    		return;
+    	
+    	switch (tipoCadastro) {
+		case CLIENTE:
+			Cliente cliente = (Cliente) selecionado;
+			cliente.setNome(jtCampo1.getText());
+			cliente.setCpf(jtCampo2.getText());
+			break;
+			
+		case VENDEDOR:
+			Vendedor vendedor = (Vendedor) selecionado;	
+			vendedor.setNome(jtCampo1.getText());
+			vendedor.setCpf(jtCampo2.getText());
+			break;
+			
+		case PRODUTO:
+			Produto produto = (Produto) selecionado;
+			produto.setDescricao(jtCampo1.getText());
+			produto.setPreco(Double.parseDouble(jtCampo2.getText()));
+			break;
+		}
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void jbPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPesquisarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbPesquisarActionPerformed
 
- 
+    
+    public boolean validaCampos(){
+    	if(jtCampo1.getText().trim().equals("") || jtCampo2.getText().trim().equals("")){
+    		Mensagem.show(this, "Todos os campos são obrigatórios", JOptionPane.WARNING_MESSAGE);
+    		return false;
+    	}
+    	return true;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btSalvar;
     private javax.swing.JButton jbNovo;

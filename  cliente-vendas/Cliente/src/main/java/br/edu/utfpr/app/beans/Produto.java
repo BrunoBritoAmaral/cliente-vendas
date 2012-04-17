@@ -9,6 +9,8 @@ private static final long serialVersionUID = 1L;
 	
 	private String descricao;
 	
+	private double preco;
+	
 	public Produto() {
 	}
 
@@ -27,6 +29,14 @@ private static final long serialVersionUID = 1L;
 
 	public String getDescricao() {
 		return descricao;
+	}
+
+	public double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(double preco) {
+		this.preco = preco;
 	}
 	
 }
