@@ -4,15 +4,19 @@
  */
 package br.edu.utfpr.view.abstracts.cadastro;
 
+import java.io.IOException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import br.edu.utfpr.app.dto.ClienteDTO;
 import br.edu.utfpr.app.dto.ProdutoDTO;
 import br.edu.utfpr.app.dto.VendedorDTO;
+import br.edu.utfpr.util.Client;
 import br.edu.utfpr.util.IBean;
 import br.edu.utfpr.util.Mensagem;
 import br.edu.utfpr.util.TipoCadastro;
+import br.edu.utfpr.view.principal.ClienteView;
 
 /**
  *
@@ -215,8 +219,18 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
     	switch (tipoCadastro) {
 		case CLIENTE:
 			ClienteDTO cliente = (ClienteDTO) selecionado;
+			
+			if(cliente == null)
+				cliente = new ClienteDTO();
+			
 			cliente.setNome(jtCampo1.getText());
 			cliente.setCpf(jtCampo2.getText());
+			
+			try {
+				ClienteView.client.enviarCliente(cliente);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			break;
 			
 		case VENDEDOR:
