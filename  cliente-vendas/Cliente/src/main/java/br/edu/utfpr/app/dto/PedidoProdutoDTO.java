@@ -4,15 +4,15 @@ import java.util.List;
 
 import br.edu.utfpr.util.IBean;
 
-public class PedidoProduto implements IBean{
+public class PedidoProdutoDTO implements IBean{
 
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
 	
-	private List<Produto> produtos;
+	private List<ProdutoDTO> produtos;
 	
-	private Pedido pedido;
+	private PedidoDTO pedido;
 	
 	private Long quantidade;
 
@@ -25,12 +25,12 @@ public class PedidoProduto implements IBean{
 	}
 
 
-	public void setProdutos(List<Produto> produtos) {
+	public void setProdutos(List<ProdutoDTO> produtos) {
 		this.produtos = produtos;
 	}
 
 
-	public List<Produto> getProdutos() {
+	public List<ProdutoDTO> getProdutos() {
 		return produtos;
 	}
 
@@ -42,11 +42,11 @@ public class PedidoProduto implements IBean{
 		return quantidade;
 	}
 
-	public void setPedido(Pedido pedido) {
+	public void setPedido(PedidoDTO pedido) {
 		this.pedido = pedido;
 	}
 
-	public Pedido getPedido() {
+	public PedidoDTO getPedido() {
 		return pedido;
 	}
 	
