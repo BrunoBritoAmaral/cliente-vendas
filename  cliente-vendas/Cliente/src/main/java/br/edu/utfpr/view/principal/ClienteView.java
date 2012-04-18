@@ -20,7 +20,7 @@ import br.edu.utfpr.view.abstracts.cadastro.AbstractCadastroView;
  */
 public class ClienteView extends javax.swing.JFrame {
     
-	public static Client client;
+	public static Client client; 
 	
 	public ClienteView(Client client) {
         this.client = client;
