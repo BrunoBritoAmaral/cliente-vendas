@@ -19,9 +19,9 @@ public class Client{
 		connect();
 	}
 	
-    public  void enviarCliente(Object o) throws IOException{//método de teste para tentar enviar um cliente
+    public  void enviarCliente(Object o,String mensagem) throws IOException{//método de teste para tentar enviar um cliente
     	try{
-    		oos.writeUTF(new String("00"));
+    		oos.writeUTF(new String(mensagem));
     		oos.writeObject(o);
     		oos.flush();
         }catch( Exception e ){ }			
