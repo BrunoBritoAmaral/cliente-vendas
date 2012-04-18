@@ -9,9 +9,9 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import br.edu.utfpr.app.dto.Cliente;
-import br.edu.utfpr.app.dto.Produto;
-import br.edu.utfpr.app.dto.Vendedor;
+import br.edu.utfpr.app.dto.ClienteDTO;
+import br.edu.utfpr.app.dto.ProdutoDTO;
+import br.edu.utfpr.app.dto.VendedorDTO;
 import br.edu.utfpr.util.Client;
 import br.edu.utfpr.util.IBean;
 import br.edu.utfpr.util.Mensagem;
@@ -38,7 +38,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 			jlCampo1.setText("Nome:");
 			jlCampo2.setText("CPF:");
 			
-			Cliente cliente = (Cliente) selecionado;
+			ClienteDTO cliente = (ClienteDTO) selecionado;
 			jtCampo1.setText(cliente == null? "" : cliente.getNome());
 			jtCampo2.setText(cliente == null? "" : cliente.getCpf());
 			break;
@@ -47,7 +47,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 			jlCampo1.setText("Nome:");
 			jlCampo2.setText("CPF:");
 			
-			Vendedor vendedor = (Vendedor) selecionado;
+			VendedorDTO vendedor = (VendedorDTO) selecionado;
 			jtCampo1.setText(vendedor == null? "" : vendedor.getNome());
 			jtCampo2.setText(vendedor == null? "" : vendedor.getCpf());
 			break;
@@ -56,7 +56,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 			jlCampo1.setText("Descrição:");
 			jlCampo2.setText("Preço:");
 			
-			Produto produto = (Produto) selecionado;
+			ProdutoDTO produto = (ProdutoDTO) selecionado;
 			jtCampo1.setText(produto == null? "" : produto.getDescricao());
 			jtCampo2.setText(produto == null? "" : String.valueOf(produto.getPreco()));
 			break;
@@ -217,7 +217,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
     	
     	switch (tipoCadastro) {
 		case CLIENTE:
-			Cliente cliente = (Cliente) selecionado;
+			ClienteDTO cliente = (ClienteDTO) selecionado;
 			cliente.setNome(jtCampo1.getText());
 			cliente.setCpf(jtCampo2.getText()); // remover dps
 			/*Cliente cliente = new Cliente();
@@ -234,13 +234,13 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 			break;
 			
 		case VENDEDOR:
-			Vendedor vendedor = (Vendedor) selecionado;	
+			VendedorDTO vendedor = (VendedorDTO) selecionado;	
 			vendedor.setNome(jtCampo1.getText());
 			vendedor.setCpf(jtCampo2.getText());
 			break;
 			
 		case PRODUTO:
-			Produto produto = (Produto) selecionado;
+			ProdutoDTO produto = (ProdutoDTO) selecionado;
 			produto.setDescricao(jtCampo1.getText());
 			produto.setPreco(Double.parseDouble(jtCampo2.getText()));
 			break;

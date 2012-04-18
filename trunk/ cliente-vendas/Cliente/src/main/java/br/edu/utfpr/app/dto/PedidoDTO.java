@@ -3,7 +3,7 @@ package br.edu.utfpr.app.dto;
 import br.edu.utfpr.util.IBean;
 
 
-public class Pedido implements IBean{
+public class PedidoDTO implements IBean{
 
 	private static final long serialVersionUID = 1L;
 
@@ -11,12 +11,12 @@ public class Pedido implements IBean{
 	
 	private String descricao;
 
-	private Cliente cliente;
+	private ClienteDTO cliente;
 	
 
-	private Vendedor vendedor;
+	private VendedorDTO vendedor;
 	
-	public Pedido() {
+	public PedidoDTO() {
 	}
 
 	@Override
@@ -28,19 +28,19 @@ public class Pedido implements IBean{
 		this.id = id;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(ClienteDTO cliente) {
 		this.cliente = cliente;
 	}
 
-	public Cliente getCliente() {
+	public ClienteDTO getCliente() {
 		return cliente;
 	}
 
-	public void setVendedor(Vendedor vendedor) {
+	public void setVendedor(VendedorDTO vendedor) {
 		this.vendedor = vendedor;
 	}
 
-	public Vendedor getVendedor() {
+	public VendedorDTO getVendedor() {
 		return vendedor;
 	}
 

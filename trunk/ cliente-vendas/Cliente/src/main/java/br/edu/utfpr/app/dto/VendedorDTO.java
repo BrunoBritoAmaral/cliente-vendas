@@ -2,9 +2,8 @@ package br.edu.utfpr.app.dto;
 
 import br.edu.utfpr.util.IBean;
 
+public class VendedorDTO implements IBean{
 
-public class Cliente implements IBean{
-	
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
@@ -13,7 +12,8 @@ public class Cliente implements IBean{
 	
 	private String cpf;
 	
-	public Cliente(){}
+	public VendedorDTO(){
+	}
 
 	public Long getId() {
 		return id;
@@ -38,6 +38,4 @@ public class Cliente implements IBean{
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	
-	
 }

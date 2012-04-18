@@ -2,7 +2,7 @@ package br.edu.utfpr.app.dto;
 
 import br.edu.utfpr.util.IBean;
 
-public class Produto implements IBean{
+public class ProdutoDTO implements IBean{
 private static final long serialVersionUID = 1L;
 	
 	private Long id;
@@ -11,7 +11,7 @@ private static final long serialVersionUID = 1L;
 	
 	private double preco;
 	
-	public Produto() {
+	public ProdutoDTO() {
 	}
 
 	@Override

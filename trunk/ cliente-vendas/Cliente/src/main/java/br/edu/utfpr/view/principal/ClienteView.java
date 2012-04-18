@@ -6,10 +6,10 @@ package br.edu.utfpr.view.principal;
 
 import javax.swing.ImageIcon;
 
-import br.edu.utfpr.app.dto.Cliente;
-import br.edu.utfpr.app.dto.Pedido;
-import br.edu.utfpr.app.dto.Produto;
-import br.edu.utfpr.app.dto.Vendedor;
+import br.edu.utfpr.app.dto.ClienteDTO;
+import br.edu.utfpr.app.dto.PedidoDTO;
+import br.edu.utfpr.app.dto.ProdutoDTO;
+import br.edu.utfpr.app.dto.VendedorDTO;
 import br.edu.utfpr.util.Client;
 import br.edu.utfpr.util.TipoCadastro;
 import br.edu.utfpr.view.abstracts.cadastro.AbstractCadastroView;
@@ -169,19 +169,19 @@ public class ClienteView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btClienteActionPerformed
-        new AbstractCadastroView<Cliente>(TipoCadastro.CLIENTE).setVisible(true);
+        new AbstractCadastroView<ClienteDTO>(TipoCadastro.CLIENTE).setVisible(true);
     }//GEN-LAST:event_btClienteActionPerformed
 
     private void btVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVendedorActionPerformed
-    	new AbstractCadastroView<Vendedor>(TipoCadastro.VENDEDOR).setVisible(true);
+    	new AbstractCadastroView<VendedorDTO>(TipoCadastro.VENDEDOR).setVisible(true);
     }//GEN-LAST:event_btVendedorActionPerformed
 
     private void jbProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbProdutosActionPerformed
-    	new AbstractCadastroView<Produto>(TipoCadastro.PRODUTO).setVisible(true);
+    	new AbstractCadastroView<ProdutoDTO>(TipoCadastro.PRODUTO).setVisible(true);
     }//GEN-LAST:event_jbProdutosActionPerformed
 
     private void jbPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPedidosActionPerformed
-    	new AbstractCadastroView<Pedido>(TipoCadastro.PEDIDO).setVisible(true);
+    	new AbstractCadastroView<PedidoDTO>(TipoCadastro.PEDIDO).setVisible(true);
     }//GEN-LAST:event_jbPedidosActionPerformed
 
     private void btConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConectarActionPerformed
