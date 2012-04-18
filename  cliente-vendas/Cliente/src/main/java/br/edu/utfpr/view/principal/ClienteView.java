@@ -20,9 +20,11 @@ import br.edu.utfpr.view.abstracts.cadastro.AbstractCadastroView;
  */
 public class ClienteView extends javax.swing.JFrame {
     
-	public ClienteView() {
-//    	Client.estabelecerConexao();
-        initComponents();
+	public static Client client;
+	
+	public ClienteView(Client client) {
+        this.client = client;
+		initComponents();
     }
 
     @SuppressWarnings("unchecked")
