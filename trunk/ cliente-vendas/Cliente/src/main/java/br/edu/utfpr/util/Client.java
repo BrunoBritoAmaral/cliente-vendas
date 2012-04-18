@@ -19,10 +19,10 @@ public class Client{
 		connect();
 	}
 	
-    public  void enviarCliente(ClienteDTO c) throws IOException{//método de teste para tentar enviar um cliente
+    public  void enviarCliente(Object o) throws IOException{//método de teste para tentar enviar um cliente
     	try{
     		oos.writeUTF(new String("00"));
-    		oos.writeObject(c);
+    		oos.writeObject(o);
     		oos.flush();
         }catch( Exception e ){ }			
     }
@@ -38,16 +38,5 @@ public class Client{
 		}
 		
     }
-    
-    public static void main(String[] args) throws IOException {
-		ClienteDTO c = new ClienteDTO();
-		c.setId(1L);
-		c.setCpf("85888");
-		c.setNome("Luan");
-		
-    	Client client = new Client();
-    	
-    	client.enviarCliente(c);
-    	client.enviarCliente(c);
-	}
+ 
 }
