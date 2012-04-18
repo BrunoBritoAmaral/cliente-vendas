@@ -4,12 +4,15 @@
  */
 package br.edu.utfpr.view.abstracts;
 
+import java.io.IOException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import br.edu.utfpr.app.dto.Cliente;
 import br.edu.utfpr.app.dto.Produto;
 import br.edu.utfpr.app.dto.Vendedor;
+import br.edu.utfpr.util.Client;
 import br.edu.utfpr.util.IBean;
 import br.edu.utfpr.util.Mensagem;
 import br.edu.utfpr.util.TipoCadastro;
@@ -216,7 +219,18 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 		case CLIENTE:
 			Cliente cliente = (Cliente) selecionado;
 			cliente.setNome(jtCampo1.getText());
-			cliente.setCpf(jtCampo2.getText());
+			cliente.setCpf(jtCampo2.getText()); // remover dps
+			/*Cliente cliente = new Cliente();
+			cliente.setCpf("1213");
+			cliente.setNome("Josaldo"); fiz isso aqui pra testar o envio de objetos*/
+			/*try {
+				System.out.println("Enviando cliente");
+				Client.enviarCliente(cliente);
+				System.out.println("Enviado!");
+			} catch (IOException e) {
+				System.out.println("Provavelmente o servidor está off!");
+				e.printStackTrace();
+			}//teste*/
 			break;
 			
 		case VENDEDOR:
