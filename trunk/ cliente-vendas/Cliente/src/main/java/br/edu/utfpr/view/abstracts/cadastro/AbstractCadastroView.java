@@ -227,7 +227,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 			cliente.setCpf(jtCampo2.getText());
 			
 			try {
-				ClienteView.client.enviarCliente(cliente);
+				ClienteView.client.enviarCliente(cliente,"00");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -235,14 +235,29 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 			
 		case VENDEDOR:
 			VendedorDTO vendedor = (VendedorDTO) selecionado;	
+			if(vendedor == null)
+				vendedor = new VendedorDTO();
+			
 			vendedor.setNome(jtCampo1.getText());
 			vendedor.setCpf(jtCampo2.getText());
+			try{
+				ClienteView.client.enviarCliente(vendedor,"10");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			break;
 			
 		case PRODUTO:
 			ProdutoDTO produto = (ProdutoDTO) selecionado;
+			if(produto == null)
+				produto = new ProdutoDTO();
 			produto.setDescricao(jtCampo1.getText());
 			produto.setPreco(Double.parseDouble(jtCampo2.getText()));
+			try{
+				ClienteView.client.enviarCliente(produto,"20");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			break;
 		}
     }//GEN-LAST:event_btSalvarActionPerformed
