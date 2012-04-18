@@ -7,7 +7,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.Socket;
 
-import br.edu.utfpr.pojo.Cliente;
+import br.edu.utfpr.app.dto.Cliente;
 
 public class Client extends Thread{
 	static final int port = 56550;
@@ -16,16 +16,12 @@ public class Client extends Thread{
 	
     public static void enviarCliente(Cliente c) throws IOException{//método de teste para tentar enviar um cliente
     	try{
-    		client = new Socket ( "localhost", port );
+    		client = new Socket ( "localhost",56551);
     		oos = new ObjectOutputStream( client.getOutputStream() );
     		oos.writeChars(new String("00"));
     		oos.writeObject(c);
     		oos.flush();
-        }catch( Exception e ){ }
-        finally{ 
-            oos.close(); 
-            client.close();
-        }			
+        }catch( Exception e ){ }			
     }
 
 	public static void estabelecerConexao(){//método de teste de conexão da
