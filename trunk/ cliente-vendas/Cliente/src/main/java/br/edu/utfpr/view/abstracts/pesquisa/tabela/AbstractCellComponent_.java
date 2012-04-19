@@ -17,7 +17,7 @@ import br.edu.utfpr.util.IBean;
 import br.edu.utfpr.util.TipoCadastro;
 import br.edu.utfpr.view.abstracts.pesquisa.AbstractPesquisaView;
 
-public class AbstractCellComponent<POJO extends IBean> extends JPanel {
+public class AbstractCellComponent_<POJO extends IBean> extends JPanel {
 	POJO pojo;
 	TipoCadastro tipoCadastro;
 
@@ -26,7 +26,7 @@ public class AbstractCellComponent<POJO extends IBean> extends JPanel {
 	JPanel botoes;
 	StringBuilder str;
 
-	AbstractCellComponent(AbstractPesquisaView<POJO> view,
+	AbstractCellComponent_(AbstractPesquisaView<POJO> view,
 			TipoCadastro tipoCadastro) {
 		this.tipoCadastro = tipoCadastro;
 		
