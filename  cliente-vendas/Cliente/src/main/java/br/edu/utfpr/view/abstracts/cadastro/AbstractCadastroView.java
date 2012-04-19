@@ -229,7 +229,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 			cliente.setCpf(jtCampo2.getText());
 			
 			try {
-				ClienteView.client.enviarCliente(cliente,"00");
+				new Client().enviar(cliente,"00");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -243,7 +243,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 			vendedor.setNome(jtCampo1.getText());
 			vendedor.setCpf(jtCampo2.getText());
 			try{
-				ClienteView.client.enviarCliente(vendedor,"10");
+				new Client().enviar(vendedor,"10");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -256,7 +256,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 			produto.setDescricao(jtCampo1.getText());
 			produto.setPreco(Double.parseDouble(jtCampo2.getText()));
 			try{
-				ClienteView.client.enviarCliente(produto,"20");
+				new Client().enviar(produto,"20");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -265,6 +265,11 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void jbPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPesquisarActionPerformed
+    	try {
+    		new Client().enviar(null, getPequisarPor());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     	new AbstractPesquisaView<POJO>(tipoCadastro, null ).setVisible(true);
     }//GEN-LAST:event_jbPesquisarActionPerformed
 
@@ -275,6 +280,18 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
     		return false;
     	}
     	return true;
+    }
+    
+    public String getPequisarPor(){
+    	switch (tipoCadastro) {
+		case CLIENTE:
+			return "02";
+		case VENDEDOR:
+			return "12";
+		case PRODUTO:
+			return "22";
+		}
+		return null;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
