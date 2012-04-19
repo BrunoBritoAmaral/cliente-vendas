@@ -6,10 +6,18 @@ package br.edu.utfpr.view.abstracts.pesquisa;
 
 import java.util.List;
 
-import com.sun.org.apache.bcel.internal.generic.LUSHR;
+import javax.swing.JTable;
 
+import com.sun.corba.se.impl.orbutil.ObjectWriter;
+
+import br.edu.utfpr.app.dto.ClienteDTO;
+import br.edu.utfpr.app.dto.ProdutoDTO;
+import br.edu.utfpr.app.dto.VendedorDTO;
 import br.edu.utfpr.util.IBean;
 import br.edu.utfpr.util.TipoCadastro;
+import br.edu.utfpr.view.abstracts.pesquisa.tabela.AbstractCellEditor_;
+import br.edu.utfpr.view.abstracts.pesquisa.tabela.AbstractCellRenderer_;
+import br.edu.utfpr.view.abstracts.pesquisa.tabela.AbstractTableModel_;
 
 /**
  *
@@ -17,14 +25,33 @@ import br.edu.utfpr.util.TipoCadastro;
  */
 public class AbstractPesquisaView<POJO extends IBean> extends javax.swing.JFrame {
 
-    List<POJO> items = null;
+    List<POJO> lista = null;
     TipoCadastro tipoCadastro;
+    Class<POJO> clazz;
 	
-	public AbstractPesquisaView(TipoCadastro tipoCadastro,List<POJO> items) {
-        this.items = items;
+	public AbstractPesquisaView(TipoCadastro tipoCadastro,List<POJO> lista) {
+        this.lista = lista;
         this.tipoCadastro = tipoCadastro;
+        clazz = getClazz();
 		initComponents();
     }
+	
+	@SuppressWarnings("unchecked")
+	public Class<POJO> getClazz(){
+		switch (tipoCadastro) {
+		case CLIENTE:
+			return (Class<POJO>) new ClienteDTO().getClass();
+			
+		case VENDEDOR:
+			return (Class<POJO>) new VendedorDTO().getClass();
+		
+		case PRODUTO:
+			return (Class<POJO>) new ProdutoDTO().getClass();
+
+		default:
+			return null;
+		}
+	}
 	
 	public void atualizaTabela(){
 		switch (tipoCadastro) {
@@ -61,7 +88,9 @@ public class AbstractPesquisaView<POJO extends IBean> extends javax.swing.JFrame
         scrollPane.setBackground(new java.awt.Color(255, 255, 255));
         scrollPane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         
-        tabela = new javax.swing.JTable();
+        tabela = new JTable(new AbstractTableModel_<POJO>(lista));
+        tabela.setDefaultRenderer(clazz, new AbstractCellRenderer_<POJO>(this, tipoCadastro));
+        tabela.setDefaultEditor(clazz, new AbstractCellEditor_<POJO>(this));
         tabela.setFont(new java.awt.Font("Tahoma", 0, 12)); 
         scrollPane.setViewportView(tabela);
 
@@ -77,7 +106,7 @@ public class AbstractPesquisaView<POJO extends IBean> extends javax.swing.JFrame
         );
 
         labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        labelTitulo.setText("Listagem de ENTIDADE cadastrados");
+        labelTitulo.setText("Listagem de "+getTitulo()+" cadastrados");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,7 +133,21 @@ public class AbstractPesquisaView<POJO extends IBean> extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    public Class getColumnClass(int columnIndex) { return clazz; }
+    
+    public String getTitulo(){
+    	switch (tipoCadastro) {
+		case CLIENTE:
+			return "clientes";
+		case VENDEDOR:
+			return "vendedores";		
+		case PRODUTO:
+			return "produtos";
+		default:
+			return "";
+		}
+    }
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable tabela;

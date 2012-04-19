@@ -4,6 +4,7 @@
  */
 package br.edu.utfpr.view.abstracts.cadastro;
 
+import java.awt.List;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
@@ -16,6 +17,7 @@ import br.edu.utfpr.util.Client;
 import br.edu.utfpr.util.IBean;
 import br.edu.utfpr.util.Mensagem;
 import br.edu.utfpr.util.TipoCadastro;
+import br.edu.utfpr.view.abstracts.pesquisa.AbstractPesquisaView;
 import br.edu.utfpr.view.principal.ClienteView;
 
 /**
@@ -263,7 +265,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void jbPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPesquisarActionPerformed
-        // TODO add your handling code here:
+    	new AbstractPesquisaView<POJO>(tipoCadastro, null ).setVisible(true);
     }//GEN-LAST:event_jbPesquisarActionPerformed
 
     
