@@ -20,11 +20,11 @@ public class Client implements Serializable{
 	static ObjectOutputStream oos;
 	static ObjectInputStream ois;
 	static Socket client;
+	private String log;
 	
 	public Client(){
 	
 	}
-	
     public Object enviar(Object o,String protocolo) throws IOException{//método de teste para tentar enviar um cliente
     	try{
     		client = new Socket ( "localhost",56551);
@@ -35,6 +35,8 @@ public class Client implements Serializable{
     		oos.writeObject(o);
     		
     		Object retorno = ois.readObject();
+    		
+    		setLog(ois.readUTF());
     		
     		oos.flush();
     		ois.close();
@@ -49,7 +51,6 @@ public class Client implements Serializable{
 
     
     public void exibe(int entidade,Object retorno) throws IOException, ClassNotFoundException{
-    	System.out.println("cheguei nessa porra");
     	try{
     	switch (entidade) {
 		case Entidade.CLIENTE:	
@@ -80,5 +81,11 @@ public class Client implements Serializable{
     		e.printStackTrace();
     	}
     }
+	public String getLog() {
+		return log;
+	}
+	public void setLog(String log) {
+		this.log = log;
+	}
  
 }
