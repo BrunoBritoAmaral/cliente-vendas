@@ -7,6 +7,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
 import br.edu.utfpr.util.IBean;
+import br.edu.utfpr.util.TipoCadastro;
 import br.edu.utfpr.view.abstracts.pesquisa.AbstractPesquisaView;
 
 public class AbstractCellEditor_<POJO extends IBean> extends AbstractCellEditor implements TableCellEditor{
@@ -14,7 +15,8 @@ public class AbstractCellEditor_<POJO extends IBean> extends AbstractCellEditor 
 	AbstractPesquisaView<POJO> view;
 	AbstractCellComponent_<POJO> component;
 	
-	public AbstractCellEditor_(AbstractPesquisaView<POJO> view){
+	public AbstractCellEditor_(AbstractPesquisaView<POJO> view,TipoCadastro tipoCadastro){
+		component = new AbstractCellComponent_<POJO>(view, tipoCadastro);
 		this.view = view;
 	}
 	

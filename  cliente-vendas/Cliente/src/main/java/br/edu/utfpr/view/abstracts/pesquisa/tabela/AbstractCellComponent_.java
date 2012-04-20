@@ -24,7 +24,6 @@ public class AbstractCellComponent_<POJO extends IBean> extends JPanel {
 	JButton editarButton, excluirButton;
 	JLabel texto, descricao;
 	JPanel botoes;
-	StringBuilder str;
 
 	AbstractCellComponent_(AbstractPesquisaView<POJO> view,
 			TipoCadastro tipoCadastro) {
@@ -72,7 +71,6 @@ public class AbstractCellComponent_<POJO extends IBean> extends JPanel {
 	public void updateData(POJO pojo, boolean isSelected, JTable table) {
 		this.pojo = pojo;
 		descricao.setText(getDescricao());
-		
 
 		if (isSelected) {
 			setBackground(new Color(214, 217, 223));
