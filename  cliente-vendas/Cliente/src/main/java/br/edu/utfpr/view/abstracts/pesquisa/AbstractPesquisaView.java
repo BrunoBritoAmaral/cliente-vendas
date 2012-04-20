@@ -15,6 +15,7 @@ import br.edu.utfpr.app.dto.ProdutoDTO;
 import br.edu.utfpr.app.dto.VendedorDTO;
 import br.edu.utfpr.util.IBean;
 import br.edu.utfpr.util.TipoCadastro;
+import br.edu.utfpr.view.abstracts.cadastro.AbstractCadastroView;
 import br.edu.utfpr.view.abstracts.pesquisa.tabela.AbstractCellEditor_;
 import br.edu.utfpr.view.abstracts.pesquisa.tabela.AbstractCellRenderer_;
 import br.edu.utfpr.view.abstracts.pesquisa.tabela.AbstractTableModel_;
@@ -28,12 +29,14 @@ public class AbstractPesquisaView<POJO extends IBean> extends javax.swing.JFrame
     List<POJO> lista = null;
     TipoCadastro tipoCadastro;
     Class<POJO> clazz;
+    AbstractCadastroView<POJO> viewCadastro;
 	
-	public AbstractPesquisaView(TipoCadastro tipoCadastro,List<POJO> lista) {
+	public AbstractPesquisaView(TipoCadastro tipoCadastro,AbstractCadastroView<POJO> viewCadastro,List<POJO> lista) {
         this.lista = lista;
         this.tipoCadastro = tipoCadastro;
-
-        clazz = getClazz();
+        this.viewCadastro = viewCadastro;
+        this.clazz = getClazz();
+        
 		initComponents();
     }
 	
@@ -93,8 +96,8 @@ public class AbstractPesquisaView<POJO extends IBean> extends javax.swing.JFrame
         scrollPane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         
         tabela = new JTable(new AbstractTableModel_<POJO>(lista,tipoCadastro));
-        tabela.setDefaultRenderer(clazz, new AbstractCellRenderer_<POJO>(this, tipoCadastro));
-        tabela.setDefaultEditor(clazz, new AbstractCellEditor_<POJO>(this,tipoCadastro));
+        tabela.setDefaultRenderer(clazz, new AbstractCellRenderer_<POJO>(this,viewCadastro, tipoCadastro));
+        tabela.setDefaultEditor(clazz, new AbstractCellEditor_<POJO>(this,viewCadastro,tipoCadastro));
         tabela.setRowHeight(55);
         
         tabela.setFont(new java.awt.Font("Tahoma", 0, 12)); 
