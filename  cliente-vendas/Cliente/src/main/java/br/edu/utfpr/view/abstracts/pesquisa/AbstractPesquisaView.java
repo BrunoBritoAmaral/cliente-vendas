@@ -57,25 +57,17 @@ public class AbstractPesquisaView<POJO extends IBean> extends javax.swing.JFrame
 		}
 	}
 	
-	public void atualizaTabela(){
-		switch (tipoCadastro) {
-		case CLIENTE:
-			List<ClienteDTO> cs = (List<ClienteDTO>) lista;
-			for (ClienteDTO c : cs) {
-				System.out.println("table: "+c.getNome());
-			}
-			break;
-		case VENDEDOR:
-					
-			break;
+	public void atualizaTabela(POJO excluido){
+		 lista.remove(excluido);
 		
-		case PRODUTO:
-			
-			break;
-
-		default:
-			break;
-		}
+		 tabela = new JTable(new AbstractTableModel_<POJO>(lista,tipoCadastro));
+	     tabela.setDefaultRenderer(clazz, new AbstractCellRenderer_<POJO>(this,viewCadastro, tipoCadastro));
+	     tabela.setDefaultEditor(clazz, new AbstractCellEditor_<POJO>(this,viewCadastro,tipoCadastro));
+	     tabela.setRowHeight(55);  
+	     scrollPane.setViewportView(tabela);
+	     
+	     tabela.updateUI();
+	     scrollPane.updateUI();
 	}
 
     @SuppressWarnings("unchecked")

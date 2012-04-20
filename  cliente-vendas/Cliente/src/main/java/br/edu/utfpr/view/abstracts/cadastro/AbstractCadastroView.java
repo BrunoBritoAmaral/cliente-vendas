@@ -26,7 +26,7 @@ import br.edu.utfpr.view.principal.ClienteView;
  */
 public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame {
 
-    TipoCadastro tipoCadastro;  
+	TipoCadastro tipoCadastro;  
     POJO selecionado = null;
 	
 	public AbstractCadastroView(TipoCadastro tipoCadastro) {
@@ -275,7 +275,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
     private void jbPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPesquisarActionPerformed
     	try {
     		List<POJO> lista =  (List<POJO>) new Client().enviar(null, getPequisarPor());
-    		new AbstractPesquisaView<POJO>(tipoCadastro,this, lista ).setVisible(true);
+    	    new AbstractPesquisaView<POJO>(tipoCadastro,this, lista ).setVisible(true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -301,6 +301,45 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 			return "22";
 		}
 		return null;
+    }
+    
+    public void excluir(AbstractPesquisaView<POJO> viewPesquisa){
+    	Client client = new Client();
+    	
+    	switch (tipoCadastro) {
+		case CLIENTE:
+			ClienteDTO cliente = (ClienteDTO) selecionado;
+			
+			try {
+				client.enviar(cliente, "01");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
+			
+		case VENDEDOR:
+			VendedorDTO vendedor = (VendedorDTO) selecionado;	
+			
+			try{
+				client.enviar(vendedor,"11");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
+			
+		case PRODUTO:
+			ProdutoDTO produto = (ProdutoDTO) selecionado;
+
+			try{
+				client.enviar(produto,"21");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
+		}
+    	
+    	Mensagem.show(viewPesquisa, client.log, JOptionPane.INFORMATION_MESSAGE);
+    	atualizaSelecionado(null);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
