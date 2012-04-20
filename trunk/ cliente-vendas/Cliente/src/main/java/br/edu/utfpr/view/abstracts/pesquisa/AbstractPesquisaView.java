@@ -32,6 +32,7 @@ public class AbstractPesquisaView<POJO extends IBean> extends javax.swing.JFrame
 	public AbstractPesquisaView(TipoCadastro tipoCadastro,List<POJO> lista) {
         this.lista = lista;
         this.tipoCadastro = tipoCadastro;
+
         clazz = getClazz();
 		initComponents();
     }
@@ -56,7 +57,10 @@ public class AbstractPesquisaView<POJO extends IBean> extends javax.swing.JFrame
 	public void atualizaTabela(){
 		switch (tipoCadastro) {
 		case CLIENTE:
-			
+			List<ClienteDTO> cs = (List<ClienteDTO>) lista;
+			for (ClienteDTO c : cs) {
+				System.out.println("table: "+c.getNome());
+			}
 			break;
 		case VENDEDOR:
 					
@@ -88,9 +92,11 @@ public class AbstractPesquisaView<POJO extends IBean> extends javax.swing.JFrame
         scrollPane.setBackground(new java.awt.Color(255, 255, 255));
         scrollPane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         
-        tabela = new JTable(new AbstractTableModel_<POJO>(lista));
+        tabela = new JTable(new AbstractTableModel_<POJO>(lista,tipoCadastro));
         tabela.setDefaultRenderer(clazz, new AbstractCellRenderer_<POJO>(this, tipoCadastro));
-        tabela.setDefaultEditor(clazz, new AbstractCellEditor_<POJO>(this));
+        tabela.setDefaultEditor(clazz, new AbstractCellEditor_<POJO>(this,tipoCadastro));
+        tabela.setRowHeight(55);
+        
         tabela.setFont(new java.awt.Font("Tahoma", 0, 12)); 
         scrollPane.setViewportView(tabela);
 

@@ -4,7 +4,7 @@
  */
 package br.edu.utfpr.view.abstracts.cadastro;
 
-import java.awt.List;
+import java.util.List;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
@@ -266,11 +266,12 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 
     private void jbPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPesquisarActionPerformed
     	try {
-    		new Client().enviar(null, getPequisarPor());
+    		List<POJO> lista =  (List<POJO>) new Client().enviar(null, getPequisarPor());
+    		new AbstractPesquisaView<POJO>(tipoCadastro, lista ).setVisible(true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	new AbstractPesquisaView<POJO>(tipoCadastro, null ).setVisible(true);
+    	
     }//GEN-LAST:event_jbPesquisarActionPerformed
 
     

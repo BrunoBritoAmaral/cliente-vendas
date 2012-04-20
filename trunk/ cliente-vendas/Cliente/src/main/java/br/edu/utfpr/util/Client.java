@@ -25,7 +25,7 @@ public class Client implements Serializable{
 	
 	}
 	
-    public void enviar(Object o,String protocolo) throws IOException{//método de teste para tentar enviar um cliente
+    public Object enviar(Object o,String protocolo) throws IOException{//método de teste para tentar enviar um cliente
     	try{
     		client = new Socket ( "localhost",56551);
 			oos = new ObjectOutputStream( client.getOutputStream() );
@@ -33,19 +33,18 @@ public class Client implements Serializable{
     		
     		oos.writeUTF(new String(protocolo));
     		oos.writeObject(o);
-    
-    		//verifico se o que foi pedido era o listar
-    		if(Integer.parseInt(String.valueOf(protocolo.charAt(1))) == Operacao.LISTAR);{
-    			Object retorno = ois.readObject();
-    			exibe(Integer.parseInt(String.valueOf(protocolo.charAt(0))),retorno);
-    		}
+    		
+    		Object retorno = ois.readObject();
     		
     		oos.flush();
     		ois.close();
     		client.close();
   
-    		
-        }catch( Exception e ){ }			
+    		return retorno;
+        }catch( Exception e ){ 
+        	e.printStackTrace();
+        	return null;
+        }			
     }
 
     
