@@ -5,12 +5,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
-import br.edu.utfpr.app.dto.ClienteDTO;
-import br.edu.utfpr.app.dto.ProdutoDTO;
-import br.edu.utfpr.app.dto.VendedorDTO;
 
 public class Client implements Serializable{
 
@@ -20,7 +14,7 @@ public class Client implements Serializable{
 	static ObjectOutputStream oos;
 	static ObjectInputStream ois;
 	static Socket client;
-	private String log;
+	public String log;
 	
 	public Client(){
 	
@@ -36,7 +30,7 @@ public class Client implements Serializable{
     		
     		Object retorno = ois.readObject();
     		
-    		setLog(ois.readUTF());
+    		log = ois.readUTF();
     		
     		oos.flush();
     		ois.close();
@@ -48,44 +42,5 @@ public class Client implements Serializable{
         	return null;
         }			
     }
-
-    
-    public void exibe(int entidade,Object retorno) throws IOException, ClassNotFoundException{
-    	try{
-    	switch (entidade) {
-		case Entidade.CLIENTE:	
-			List<ClienteDTO> clientes = (List<ClienteDTO>) retorno;
-			for (ClienteDTO c : clientes) {
-				System.out.println(c.getNome());
-			}
-			break;
-		case Entidade.VENDEDOR:
-			List<VendedorDTO> vendedores = new ArrayList<VendedorDTO>();
-			vendedores = (List<VendedorDTO>) retorno;
-			for (VendedorDTO v : vendedores) {
-				System.out.println(v.getNome());
-			}
-			break;
-		case Entidade.PRODUTO:
-			List<ProdutoDTO> produtos = new ArrayList<ProdutoDTO>();
-			produtos = (List<ProdutoDTO>) retorno;
-			for (ProdutoDTO p : produtos) {
-				System.out.println(p.getDescricao());
-			}
-			break;
-
-		default:
-			break;
-		}
-    	}catch (Exception e) {
-    		e.printStackTrace();
-    	}
-    }
-	public String getLog() {
-		return log;
-	}
-	public void setLog(String log) {
-		this.log = log;
-	}
  
 }
