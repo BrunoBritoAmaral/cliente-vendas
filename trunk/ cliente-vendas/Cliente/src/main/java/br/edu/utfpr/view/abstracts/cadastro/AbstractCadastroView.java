@@ -275,7 +275,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
     private void jbPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPesquisarActionPerformed
     	try {
     		List<POJO> lista =  (List<POJO>) new Client().enviar(null, getPequisarPor());
-    		new AbstractPesquisaView<POJO>(tipoCadastro, lista ).setVisible(true);
+    		new AbstractPesquisaView<POJO>(tipoCadastro,this, lista ).setVisible(true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

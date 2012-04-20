@@ -7,6 +7,7 @@ import javax.swing.table.TableCellRenderer;
 
 import br.edu.utfpr.util.IBean;
 import br.edu.utfpr.util.TipoCadastro;
+import br.edu.utfpr.view.abstracts.cadastro.AbstractCadastroView;
 import br.edu.utfpr.view.abstracts.pesquisa.AbstractPesquisaView;
 
 public class AbstractCellRenderer_<POJO extends IBean> implements TableCellRenderer{
@@ -14,8 +15,8 @@ public class AbstractCellRenderer_<POJO extends IBean> implements TableCellRende
 	AbstractCellComponent_<POJO> abstractComponent;
 	POJO pojo;
 	
-	public AbstractCellRenderer_(AbstractPesquisaView<POJO> view,TipoCadastro tipoCadastro){
-		abstractComponent = new AbstractCellComponent_<POJO>(view, tipoCadastro);
+	public AbstractCellRenderer_(AbstractPesquisaView<POJO> view,AbstractCadastroView<POJO> viewCadastro,TipoCadastro tipoCadastro){
+		abstractComponent = new AbstractCellComponent_<POJO>(view,viewCadastro ,tipoCadastro);
 	}
 	
 	@Override

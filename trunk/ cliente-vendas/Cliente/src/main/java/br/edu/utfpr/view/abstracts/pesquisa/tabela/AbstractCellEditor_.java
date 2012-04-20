@@ -8,16 +8,15 @@ import javax.swing.table.TableCellEditor;
 
 import br.edu.utfpr.util.IBean;
 import br.edu.utfpr.util.TipoCadastro;
+import br.edu.utfpr.view.abstracts.cadastro.AbstractCadastroView;
 import br.edu.utfpr.view.abstracts.pesquisa.AbstractPesquisaView;
 
 public class AbstractCellEditor_<POJO extends IBean> extends AbstractCellEditor implements TableCellEditor{
 
-	AbstractPesquisaView<POJO> view;
 	AbstractCellComponent_<POJO> component;
 	
-	public AbstractCellEditor_(AbstractPesquisaView<POJO> view,TipoCadastro tipoCadastro){
-		component = new AbstractCellComponent_<POJO>(view, tipoCadastro);
-		this.view = view;
+	public AbstractCellEditor_(AbstractPesquisaView<POJO> view,AbstractCadastroView<POJO> viewCadastro,TipoCadastro tipoCadastro){
+		component = new AbstractCellComponent_<POJO>(view, viewCadastro,tipoCadastro);
 	}
 	
 	@Override
