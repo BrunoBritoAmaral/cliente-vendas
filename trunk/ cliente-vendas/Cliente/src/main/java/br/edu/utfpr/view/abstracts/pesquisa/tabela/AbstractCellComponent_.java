@@ -52,7 +52,9 @@ public class AbstractCellComponent_<POJO extends IBean> extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int op = JOptionPane.showConfirmDialog(null,"Deseja excluir o item selecionado?","Excluir",JOptionPane.YES_NO_OPTION);
 				if(op == 0){
-					
+					viewCadastro.atualizaSelecionado(pojo);
+					viewCadastro.excluir(view);
+					view.atualizaTabela(pojo);
 				}
 			}
 		});
