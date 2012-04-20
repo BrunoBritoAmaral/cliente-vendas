@@ -28,7 +28,8 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 
     TipoCadastro tipoCadastro;  
     POJO selecionado = null;
-	
+	Client a;
+	JOptionPane alert;
 	public AbstractCadastroView(TipoCadastro tipoCadastro) {
         this.tipoCadastro = tipoCadastro;
 		initComponents();
@@ -213,7 +214,10 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
         atualizaSelecionado(null);
     }//GEN-LAST:event_jbNovoActionPerformed
-
+    private void limpaCampos(){
+    	jtCampo1.setText("");
+    	jtCampo2.setText("");
+    }
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
     	if(!validaCampos())
     		return;
@@ -227,11 +231,16 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 			
 			cliente.setNome(jtCampo1.getText());
 			cliente.setCpf(jtCampo2.getText());
-			
+			Client a = new Client();
 			try {
+				a.enviar(cliente, "00");
+
 				new Client().enviar(cliente,"00");
 			} catch (IOException e) {
 				e.printStackTrace();
+			}finally{
+				limpaCampos();
+				JOptionPane.showMessageDialog(null,a.getLog());
 			}
 			break;
 			
@@ -242,10 +251,14 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 			
 			vendedor.setNome(jtCampo1.getText());
 			vendedor.setCpf(jtCampo2.getText());
+			a = new Client();
 			try{
-				new Client().enviar(vendedor,"10");
+				a.enviar(vendedor,"10");
 			} catch (IOException e) {
 				e.printStackTrace();
+			}finally{
+				limpaCampos();
+				JOptionPane.showMessageDialog(null,a.getLog());
 			}
 			break;
 			
@@ -255,10 +268,14 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 				produto = new ProdutoDTO();
 			produto.setDescricao(jtCampo1.getText());
 			produto.setPreco(Double.parseDouble(jtCampo2.getText()));
+			a = new Client();
 			try{
-				new Client().enviar(produto,"20");
+				a.enviar(produto,"20");
 			} catch (IOException e) {
 				e.printStackTrace();
+			}finally{
+				limpaCampos();
+				JOptionPane.showMessageDialog(null,a.getLog());
 			}
 			break;
 		}
