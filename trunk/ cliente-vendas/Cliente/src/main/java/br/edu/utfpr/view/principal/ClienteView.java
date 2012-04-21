@@ -16,6 +16,7 @@ import br.edu.utfpr.util.Client;
 import br.edu.utfpr.util.Mensagem;
 import br.edu.utfpr.util.TipoCadastro;
 import br.edu.utfpr.view.abstracts.cadastro.AbstractCadastroView;
+import br.edu.utfpr.view.pedido.PedidoView;
 
 /**
  *
@@ -160,12 +161,9 @@ public class ClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_jbProdutosActionPerformed
 
     private void jbPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPedidosActionPerformed
-    	new AbstractCadastroView<PedidoDTO>(TipoCadastro.PEDIDO).setVisible(true);
+    	new PedidoView().setVisible(true);
     }//GEN-LAST:event_jbPedidosActionPerformed
 
-//    private void btConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConectarActionPerformed
-//        System.out.println("Tentando conectar!");
-//    }//GEN-LAST:event_btConectarActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
        System.exit(0);

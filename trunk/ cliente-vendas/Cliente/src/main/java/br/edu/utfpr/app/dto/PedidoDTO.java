@@ -12,7 +12,6 @@ public class PedidoDTO implements IBean{
 	private String descricao;
 
 	private ClienteDTO cliente;
-	
 
 	private VendedorDTO vendedor;
 	

@@ -344,8 +344,6 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 			break;
 		}
     	
-    	System.out.println(retorno == null);
-    	
     	if(retorno != null){
 	    	Mensagem.show(viewPesquisa, client.log, JOptionPane.INFORMATION_MESSAGE);
 	    	atualizaSelecionado(null);
