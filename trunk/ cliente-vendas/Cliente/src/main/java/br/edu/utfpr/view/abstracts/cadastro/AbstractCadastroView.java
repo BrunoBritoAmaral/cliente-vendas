@@ -218,7 +218,8 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
     	if(!validaCampos())
     		return;
     	
-    	Client client = new Client();
+    	Client client = new Client(this);
+    	Object retorno = null;
     	
     	switch (tipoCadastro) {
 		case CLIENTE:
@@ -231,7 +232,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 			cliente.setCpf(jtCampo2.getText());
 			
 			try {
-				client.enviar(cliente, "00");
+				retorno = client.enviar(cliente, "00");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -246,7 +247,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 			vendedor.setCpf(jtCampo2.getText());
 			
 			try{
-				client.enviar(vendedor,"10");
+				retorno = client.enviar(vendedor,"10");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -261,21 +262,25 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 			produto.setPreco(Double.parseDouble(jtCampo2.getText()));
 
 			try{
-				client.enviar(produto,"20");
+				retorno = client.enviar(produto,"20");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			break;
 		}
     	
-    	atualizaSelecionado(null);
-		Mensagem.show(this, client.log, JOptionPane.INFORMATION_MESSAGE);
+    	if(retorno != null){
+	    	atualizaSelecionado(null);
+			Mensagem.show(this, client.log, JOptionPane.INFORMATION_MESSAGE);
+    	}
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void jbPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPesquisarActionPerformed
     	try {
-    		List<POJO> lista =  (List<POJO>) new Client().enviar(null, getPequisarPor());
-    	    new AbstractPesquisaView<POJO>(tipoCadastro,this, lista ).setVisible(true);
+    		List<POJO> lista =  (List<POJO>) new Client(this).enviar(null, getPequisarPor());
+    		if(lista != null){
+    			new AbstractPesquisaView<POJO>(tipoCadastro,this, lista ).setVisible(true);
+    		}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -304,14 +309,15 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
     }
     
     public void excluir(AbstractPesquisaView<POJO> viewPesquisa){
-    	Client client = new Client();
+    	Client client = new Client(this);
+    	Object retorno = null;
     	
     	switch (tipoCadastro) {
 		case CLIENTE:
 			ClienteDTO cliente = (ClienteDTO) selecionado;
 			
 			try {
-				client.enviar(cliente, "01");
+				retorno = client.enviar(cliente, "01");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -321,7 +327,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 			VendedorDTO vendedor = (VendedorDTO) selecionado;	
 			
 			try{
-				client.enviar(vendedor,"11");
+				retorno = client.enviar(vendedor,"11");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -331,15 +337,19 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 			ProdutoDTO produto = (ProdutoDTO) selecionado;
 
 			try{
-				client.enviar(produto,"21");
+				retorno = client.enviar(produto,"21");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			break;
 		}
     	
-    	Mensagem.show(viewPesquisa, client.log, JOptionPane.INFORMATION_MESSAGE);
-    	atualizaSelecionado(null);
+    	System.out.println(retorno == null);
+    	
+    	if(retorno != null){
+	    	Mensagem.show(viewPesquisa, client.log, JOptionPane.INFORMATION_MESSAGE);
+	    	atualizaSelecionado(null);
+    	}
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

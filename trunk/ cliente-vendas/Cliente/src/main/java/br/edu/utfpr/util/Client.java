@@ -6,7 +6,12 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 
-public class Client implements Serializable{
+import javax.swing.JOptionPane;
+
+import br.edu.utfpr.view.abstracts.cadastro.AbstractCadastroView;
+import br.edu.utfpr.view.principal.ClienteView;
+
+public class Client<POJO extends IBean> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -15,11 +20,14 @@ public class Client implements Serializable{
 	static ObjectInputStream ois;
 	static Socket client;
 	public String log;
+	public AbstractCadastroView<POJO> view;
 	
-	public Client(){
-	
+	public Client(AbstractCadastroView<POJO> view){
+		this.view = view;
 	}
-    public Object enviar(Object o,String protocolo) throws IOException{//método de teste para tentar enviar um cliente
+	
+    public Object enviar(Object o,String protocolo) throws IOException{
+    	Object retorno = null;
     	try{
     		client = new Socket ( "localhost",56551);
 			oos = new ObjectOutputStream( client.getOutputStream() );
@@ -28,7 +36,7 @@ public class Client implements Serializable{
     		oos.writeUTF(new String(protocolo));
     		oos.writeObject(o);
     		
-    		Object retorno = ois.readObject();
+    		retorno = ois.readObject();
     		
     		log = ois.readUTF();
     		
@@ -37,7 +45,12 @@ public class Client implements Serializable{
     		client.close();
   
     		return retorno;
-        }catch( Exception e ){ 
+    	}
+    	catch (java.net.ConnectException e) {
+    		Mensagem.show(view, "Não foi possivel conectar com o servidor", JOptionPane.ERROR_MESSAGE);
+    		return null;
+		}
+        catch( Exception e ){ 
         	e.printStackTrace();
         	return null;
         }			

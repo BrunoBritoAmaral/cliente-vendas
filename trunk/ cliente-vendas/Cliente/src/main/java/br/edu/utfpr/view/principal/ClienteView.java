@@ -5,12 +5,15 @@
 package br.edu.utfpr.view.principal;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.text.View;
 
 import br.edu.utfpr.app.dto.ClienteDTO;
 import br.edu.utfpr.app.dto.PedidoDTO;
 import br.edu.utfpr.app.dto.ProdutoDTO;
 import br.edu.utfpr.app.dto.VendedorDTO;
 import br.edu.utfpr.util.Client;
+import br.edu.utfpr.util.Mensagem;
 import br.edu.utfpr.util.TipoCadastro;
 import br.edu.utfpr.view.abstracts.cadastro.AbstractCadastroView;
 
@@ -33,9 +36,6 @@ public class ClienteView extends javax.swing.JFrame {
         btVendedor = new javax.swing.JButton();
         jbProdutos = new javax.swing.JButton();
         jbPedidos = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jtdEndereco = new javax.swing.JTextField();
-        btConectar = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -109,20 +109,6 @@ public class ClienteView extends javax.swing.JFrame {
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel1.setText("Endereço");
-
-        jtdEndereco.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-
-        btConectar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/connect.png")));
-        btConectar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btConectar.setText("Conectar");
-        btConectar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btConectarActionPerformed(evt);
-            }
-        });
-
         btSair.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/exit.png")));
         btSair.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btSair.setText("Sair");
@@ -140,11 +126,8 @@ public class ClienteView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtdEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btConectar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -155,9 +138,6 @@ public class ClienteView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jtdEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btConectar)
                     .addComponent(btSair))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -183,24 +163,21 @@ public class ClienteView extends javax.swing.JFrame {
     	new AbstractCadastroView<PedidoDTO>(TipoCadastro.PEDIDO).setVisible(true);
     }//GEN-LAST:event_jbPedidosActionPerformed
 
-    private void btConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConectarActionPerformed
-        System.out.println("Tentando conectar!");
-    }//GEN-LAST:event_btConectarActionPerformed
+//    private void btConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConectarActionPerformed
+//        System.out.println("Tentando conectar!");
+//    }//GEN-LAST:event_btConectarActionPerformed
 
     private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
        System.exit(0);
     }//GEN-LAST:event_btSairActionPerformed
-
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCliente;
-    private javax.swing.JButton btConectar;
     private javax.swing.JButton btSair;
     private javax.swing.JButton btVendedor;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jbPedidos;
     private javax.swing.JButton jbProdutos;
-    private javax.swing.JTextField jtdEndereco;
     // End of variables declaration//GEN-END:variables
 }
