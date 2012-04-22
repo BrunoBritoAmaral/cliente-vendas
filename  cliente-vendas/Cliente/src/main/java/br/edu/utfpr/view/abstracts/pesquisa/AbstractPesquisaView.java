@@ -161,7 +161,7 @@ public class AbstractPesquisaView<POJO extends IBean,V extends AbstractView<POJO
     // End of variables declaration//GEN-END:variables
 
 	@Override
-	public void setLista(List<?> lista) {
+	public void addLista(ProdutoDTO pojo) {
 		
 	}
 
