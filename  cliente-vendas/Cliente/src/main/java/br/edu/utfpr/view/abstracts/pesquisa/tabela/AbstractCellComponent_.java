@@ -19,10 +19,11 @@ import br.edu.utfpr.app.dto.ProdutoDTO;
 import br.edu.utfpr.app.dto.VendedorDTO;
 import br.edu.utfpr.util.IBean;
 import br.edu.utfpr.util.TipoCadastro;
+import br.edu.utfpr.view.AbstractView;
 import br.edu.utfpr.view.abstracts.cadastro.AbstractCadastroView;
 import br.edu.utfpr.view.abstracts.pesquisa.AbstractPesquisaView;
 
-public class AbstractCellComponent_<POJO extends IBean> extends JPanel {
+public class AbstractCellComponent_<POJO extends IBean,V extends AbstractView<POJO>> extends JPanel {
 	POJO pojo;
 	TipoCadastro tipoCadastro;
 
@@ -30,7 +31,7 @@ public class AbstractCellComponent_<POJO extends IBean> extends JPanel {
 	JLabel texto;
 	JPanel botoes;
 
-	AbstractCellComponent_(final AbstractPesquisaView<POJO> view,final AbstractCadastroView<POJO> viewCadastro,TipoCadastro tipoCadastro) {
+	AbstractCellComponent_(final V view,final V viewCadastro,TipoCadastro tipoCadastro) {
 		this.tipoCadastro = tipoCadastro;
 		
 		editarButton = new JButton();

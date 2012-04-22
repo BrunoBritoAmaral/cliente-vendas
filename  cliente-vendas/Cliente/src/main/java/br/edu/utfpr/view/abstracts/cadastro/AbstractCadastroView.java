@@ -5,9 +5,11 @@
 package br.edu.utfpr.view.abstracts.cadastro;
 
 import java.util.List;
+import java.awt.Component;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import br.edu.utfpr.app.dto.ClienteDTO;
@@ -17,6 +19,7 @@ import br.edu.utfpr.util.Client;
 import br.edu.utfpr.util.IBean;
 import br.edu.utfpr.util.Mensagem;
 import br.edu.utfpr.util.TipoCadastro;
+import br.edu.utfpr.view.AbstractView;
 import br.edu.utfpr.view.abstracts.pesquisa.AbstractPesquisaView;
 import br.edu.utfpr.view.principal.ClienteView;
 
@@ -24,7 +27,7 @@ import br.edu.utfpr.view.principal.ClienteView;
  *
  * @author Luan
  */
-public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame {
+public class AbstractCadastroView<POJO extends IBean> extends JFrame implements AbstractView<POJO>{
 
 	TipoCadastro tipoCadastro;  
     POJO selecionado = null;
@@ -69,6 +72,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 		}
 	}
 	
+	@Override
 	public void atualizaSelecionado(POJO selecionado){
 		this.selecionado = selecionado;
 		populaTela();
@@ -279,7 +283,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
     	try {
     		List<POJO> lista =  (List<POJO>) new Client(this).enviar(getPequisarPor());
     		if(lista != null){
-    			new AbstractPesquisaView<POJO>(tipoCadastro,this, lista ).setVisible(true);
+    			new AbstractPesquisaView<POJO,AbstractCadastroView<POJO>>(tipoCadastro,this, lista ).setVisible(true);
     		}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -308,7 +312,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 		return null;
     }
     
-    public void excluir(AbstractPesquisaView<POJO> viewPesquisa){
+    public void excluir(AbstractView<POJO> viewPesquisa){
     	Client client = new Client(this);
     	Object retorno = null;
     	
@@ -345,7 +349,7 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
 		}
     	
     	if(retorno != null){
-	    	Mensagem.show(viewPesquisa, client.log, JOptionPane.INFORMATION_MESSAGE);
+	    	Mensagem.show((Component) viewPesquisa, client.log, JOptionPane.INFORMATION_MESSAGE);
 	    	atualizaSelecionado(null);
     	}
     }
@@ -361,4 +365,18 @@ public class AbstractCadastroView<POJO extends IBean> extends javax.swing.JFrame
     private javax.swing.JPanel painelBotoes;
     private javax.swing.JPanel painelConteudo;
     // End of variables declaration//GEN-END:variables
+
+	@Override
+	public void setLista(List<?> lista) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void atualizaTabela(POJO pojo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 }

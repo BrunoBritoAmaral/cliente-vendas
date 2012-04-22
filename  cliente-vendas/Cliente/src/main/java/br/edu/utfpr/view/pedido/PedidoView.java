@@ -5,12 +5,12 @@
 package br.edu.utfpr.view.pedido;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import br.edu.utfpr.app.dto.ClienteDTO;
@@ -19,13 +19,16 @@ import br.edu.utfpr.app.dto.ProdutoDTO;
 import br.edu.utfpr.app.dto.VendedorDTO;
 import br.edu.utfpr.util.Client;
 import br.edu.utfpr.util.Mensagem;
+import br.edu.utfpr.util.TipoCadastro;
+import br.edu.utfpr.view.AbstractView;
+import br.edu.utfpr.view.abstracts.pesquisa.AbstractPesquisaView;
 
 
 /**
  *
  * @author Luan
  */
-public class PedidoView extends javax.swing.JFrame {
+public class PedidoView extends JFrame implements AbstractView<ProdutoDTO>{
 
 	PedidoDTO selecionado;
 	List<VendedorDTO> vendedores;;
@@ -81,14 +84,21 @@ public class PedidoView extends javax.swing.JFrame {
 		try {
 			produtos = (List<ProdutoDTO>) client.enviar("22");
 			
-		    listProdutos.setModel( new DefaultListModel());
-		    
-		    DefaultListModel modelo = ( DefaultListModel ) listProdutos.getModel();  
+			if(produtos.isEmpty()){
+				listProdutos.setModel(new javax.swing.AbstractListModel() {
+					String[] strings = { "Nenhum produto adicionado" };
+					public int getSize() {return strings.length;}
+					public Object getElementAt(int i) {return strings[i];}
+				});
+			}
 			
-		    for ( int i = 0; i < produtos.size(); i++)  
-		        modelo.addElement( produtos.get(i) );
-		    
-		
+			else{
+			    listProdutos.setModel( new DefaultListModel());
+			    DefaultListModel modelo = ( DefaultListModel ) listProdutos.getModel();  
+				
+			    for ( int i = 0; i < produtos.size(); i++)  
+			        modelo.addElement( produtos.get(i) );
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -193,11 +203,6 @@ public class PedidoView extends javax.swing.JFrame {
         lbProdutos.setText("Produtos:");
 
         listProdutos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        listProdutos.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Nenhum produto adicionado"};
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         listProdutos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         
         jScrollPane2.setViewportView(listProdutos);
@@ -320,7 +325,13 @@ public class PedidoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jbPesquisarActionPerformed
 
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
-
+    	try {
+    		TipoCadastro tipoCadastro = TipoCadastro.ADICIONAR_PRODUTO;
+    		List<ProdutoDTO> lista =  (List<ProdutoDTO>) new Client(this).enviar("22");
+    			new AbstractPesquisaView<ProdutoDTO,PedidoView>(tipoCadastro,this, lista ).setVisible(true);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
@@ -366,4 +377,24 @@ public class PedidoView extends javax.swing.JFrame {
     private javax.swing.JPanel painelBotoes;
     private javax.swing.JPanel painelConteudo;
     // End of variables declaration//GEN-END:variables
+
+	@Override
+	public void setLista(List<?> lista) {
+		
+	}
+
+	@Override
+	public void atualizaSelecionado(ProdutoDTO pojo) {
+		
+	}
+
+	@Override
+	public void atualizaTabela(ProdutoDTO pojo) {
+		
+	}
+
+	@Override
+	public void excluir(AbstractView<ProdutoDTO> view) {
+		
+	}
 }
