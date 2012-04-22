@@ -159,19 +159,16 @@ public class AbstractPesquisaView<POJO extends IBean,V extends AbstractView<POJO
 
 	@Override
 	public void setLista(List<?> lista) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void atualizaSelecionado(POJO pojo) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void excluir(AbstractView<POJO> view) {
-		// TODO Auto-generated method stub
 		
 	}
 }
