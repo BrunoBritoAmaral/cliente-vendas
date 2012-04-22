@@ -40,6 +40,9 @@ public class AbstractTableModel_<POJO extends IBean> extends javax.swing.table.A
 		
 		case PRODUTO:
 			return (Class<POJO>) new ProdutoDTO().getClass();
+		
+		case ADICIONAR_PRODUTO:
+			return (Class<POJO>) new ProdutoDTO().getClass();
 
 		default:
 			return null;
