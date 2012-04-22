@@ -1,5 +1,8 @@
 package br.edu.utfpr.app.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.edu.utfpr.util.IBean;
 
 
@@ -12,10 +15,13 @@ public class PedidoDTO implements IBean{
 	private String descricao;
 
 	private ClienteDTO cliente;
+	
+	private List<ProdutoDTO> produtos;
 
 	private VendedorDTO vendedor;
 	
 	public PedidoDTO() {
+		produtos = new ArrayList<ProdutoDTO>();
 	}
 
 	@Override
@@ -49,6 +55,24 @@ public class PedidoDTO implements IBean{
 
 	public String getDescricao() {
 		return descricao;
+	}
+	
+	public void add(ProdutoDTO p){
+		if(!produtos.contains(p))
+			produtos.add(p);
+	}
+	
+	public void remove(ProdutoDTO p){
+		if(produtos.contains(p))
+			produtos.remove(p);
+	}
+	
+	public List<ProdutoDTO> getProdutos(){
+		return produtos;
+	}
+	
+	public void setProdutos(List<ProdutoDTO> produtos){
+		this.produtos = produtos;
 	}
 	
 }

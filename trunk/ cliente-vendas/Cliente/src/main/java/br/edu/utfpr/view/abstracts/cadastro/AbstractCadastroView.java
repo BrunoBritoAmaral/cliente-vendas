@@ -367,14 +367,12 @@ public class AbstractCadastroView<POJO extends IBean> extends JFrame implements 
     // End of variables declaration//GEN-END:variables
 
 	@Override
-	public void setLista(List<?> lista) {
-		// TODO Auto-generated method stub
+	public void addLista(ProdutoDTO pojo) {
 		
 	}
 
 	@Override
 	public void atualizaTabela(POJO pojo) {
-		// TODO Auto-generated method stub
 		
 	}
 

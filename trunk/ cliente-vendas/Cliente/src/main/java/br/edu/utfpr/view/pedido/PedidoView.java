@@ -5,6 +5,7 @@
 package br.edu.utfpr.view.pedido;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractListModel;
@@ -30,40 +31,41 @@ import br.edu.utfpr.view.abstracts.pesquisa.AbstractPesquisaView;
  */
 public class PedidoView extends JFrame implements AbstractView<ProdutoDTO>{
 
-	PedidoDTO selecionado;
 	List<VendedorDTO> vendedores;;
 	List<ClienteDTO> clientes;
-	List<ProdutoDTO> produtos;
+	PedidoDTO pedido;
 	Client<PedidoView> client;
 	
 	public PedidoView() {
 		client = new Client<PedidoView>(this);
+		pedido = new PedidoDTO();
+		vendedores = new ArrayList<VendedorDTO>();
+		clientes = new ArrayList<ClienteDTO>();
+		
 		initComponents();
 		populaTela();
     }
 
 	public void populaTela(){
-		textArea.setText(selecionado == null ? "" : selecionado.getDescricao());
-		
-		comboVendedores.setSelectedItem(null);
-		comboClientes.setSelectedItem(null);
-		
-		listProdutos.setModel(new AbstractListModel() {
-	       String[] strings = { "Nenhum produto adicionado"};
-	       public int getSize() { return strings.length; }
-	       public Object getElementAt(int i) { return strings[i]; }
-	    });
+		textArea.setText(pedido == null ? "" : pedido.getDescricao());
 		
 		populaCombos();
 		populaProdutos();
 	}
 	
 	public void atualizaSelecionado(PedidoDTO pedidoDTO){
-		selecionado = pedidoDTO;
+		pedido = pedidoDTO;
 		populaTela();
 	}
 	
 	private void populaCombos() {
+		
+		comboClientes.removeAll();
+		comboVendedores.removeAll();
+		
+		clientes = new ArrayList<ClienteDTO>();
+		vendedores = new ArrayList<VendedorDTO>();
+		
 		try {
 			vendedores = (List<VendedorDTO>) client.enviar("12");
 			clientes = (List<ClienteDTO>) client.enviar("02");
@@ -75,33 +77,41 @@ public class PedidoView extends JFrame implements AbstractView<ProdutoDTO>{
 			for (ClienteDTO c : clientes) {
 				comboClientes.insertItemAt(c.getNome(), clientes.indexOf(c));
 			}
+			
+			comboClientes.updateUI();
+			comboVendedores.updateUI();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public void populaProdutos(){
-		try {
-			produtos = (List<ProdutoDTO>) client.enviar("22");
-			
-			if(produtos.isEmpty()){
-				listProdutos.setModel(new javax.swing.AbstractListModel() {
-					String[] strings = { "Nenhum produto adicionado" };
-					public int getSize() {return strings.length;}
-					public Object getElementAt(int i) {return strings[i];}
-				});
-			}
-			
-			else{
-			    listProdutos.setModel( new DefaultListModel());
-			    DefaultListModel modelo = ( DefaultListModel ) listProdutos.getModel();  
-				
-			    for ( int i = 0; i < produtos.size(); i++)  
-			        modelo.addElement( produtos.get(i) );
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(pedido.getProdutos().isEmpty()){
+			listProdutos.setModel(new javax.swing.AbstractListModel() {
+				String[] strings = { "Nenhum produto adicionado" };
+				public int getSize() {return strings.length;}
+				public Object getElementAt(int i) {return strings[i];}
+			});
 		}
+		
+		else{
+		    listProdutos.setModel(new DefaultListModel());
+		    DefaultListModel modelo = ( DefaultListModel ) listProdutos.getModel();  
+			
+		    for ( int i = 0; i < pedido.getProdutos().size(); i++)  
+		        modelo.addElement( pedido.getProdutos().get(i) );
+		}
+	}
+	
+	@Override
+	public void addLista(ProdutoDTO pojo) {
+		pedido.add(pojo);
+		populaProdutos();
+	}
+	
+	public void atualizaPedido(PedidoDTO pojo) {
+		pedido = pojo;
+		populaTela();
 	}
 	
     @SuppressWarnings("unchecked")
@@ -306,17 +316,28 @@ public class PedidoView extends JFrame implements AbstractView<ProdutoDTO>{
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
-       populaTela();
+    	atualizaPedido(new PedidoDTO());
     }//GEN-LAST:event_jbNovoActionPerformed
    
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
     	if(!validaCampos())
     		return;
     	
-    	ClienteDTO cliente = clientes.get(comboClientes.getSelectedIndex());
-    	VendedorDTO vendedor = vendedores.get(comboVendedores.getSelectedIndex());
-    	System.out.println("Cliente: "+cliente.getNome());
-    	System.out.println("Vendedor: "+vendedor.getNome());
+    	pedido.setDescricao(textArea.getText().trim());
+    	pedido.setCliente(clientes.get(comboClientes.getSelectedIndex()));
+    	pedido.setVendedor(vendedores.get(comboVendedores.getSelectedIndex()));
+    	
+    	Object retorno = null;
+    	try {
+    		retorno = client.enviar(pedido, "30");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+    	if(retorno != null){
+    		atualizaPedido(new PedidoDTO());
+			Mensagem.show(this, client.log, JOptionPane.INFORMATION_MESSAGE);
+    	}
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void jbPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPesquisarActionPerformed
@@ -328,7 +349,7 @@ public class PedidoView extends JFrame implements AbstractView<ProdutoDTO>{
     	try {
     		TipoCadastro tipoCadastro = TipoCadastro.ADICIONAR_PRODUTO;
     		List<ProdutoDTO> lista =  (List<ProdutoDTO>) new Client(this).enviar("22");
-    			new AbstractPesquisaView<ProdutoDTO,PedidoView>(tipoCadastro,this, lista ).setVisible(true);
+    		new AbstractPesquisaView<ProdutoDTO,PedidoView>(tipoCadastro,this, lista ).setVisible(true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -378,15 +399,12 @@ public class PedidoView extends JFrame implements AbstractView<ProdutoDTO>{
     private javax.swing.JPanel painelConteudo;
     // End of variables declaration//GEN-END:variables
 
-	@Override
-	public void setLista(List<?> lista) {
-		
-	}
-
+	
 	@Override
 	public void atualizaSelecionado(ProdutoDTO pojo) {
 		
 	}
+	
 
 	@Override
 	public void atualizaTabela(ProdutoDTO pojo) {

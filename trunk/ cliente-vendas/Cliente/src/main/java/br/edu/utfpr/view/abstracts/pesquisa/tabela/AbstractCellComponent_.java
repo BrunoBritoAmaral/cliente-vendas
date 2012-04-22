@@ -25,38 +25,12 @@ public class AbstractCellComponent_<POJO extends IBean,V extends AbstractView<PO
 	POJO pojo;
 	TipoCadastro tipoCadastro;
 
-	JButton editarButton, excluirButton;
+	JButton editarButton, excluirButton, adicionarButton;
 	JLabel texto;
 	JPanel botoes;
 
 	AbstractCellComponent_(final V view,final V viewCadastro,TipoCadastro tipoCadastro) {
 		this.tipoCadastro = tipoCadastro;
-		
-		editarButton = new JButton();
-		editarButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/edit.png")));
-		editarButton.setToolTipText("Editar");
-		editarButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				viewCadastro.atualizaSelecionado(pojo);
-				view.dispose();
-			}
-		});
-		
-		excluirButton = new JButton();
-		excluirButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/Trash-icon.png")));
-		excluirButton.setToolTipText("Excluir");
-		excluirButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int op = JOptionPane.showConfirmDialog(null,"Deseja excluir o item selecionado?","Excluir",JOptionPane.YES_NO_OPTION);
-				if(op == 0){
-					viewCadastro.atualizaSelecionado(pojo);
-					viewCadastro.excluir(view);
-					view.atualizaTabela(pojo);
-				}
-			}
-		});
 		
 		this.setLayout(new BorderLayout());
 	    setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));  
@@ -67,16 +41,57 @@ public class AbstractCellComponent_<POJO extends IBean,V extends AbstractView<PO
 	    
 	    botoes = new JPanel();
 	    botoes.setLayout(new BorderLayout());
-	    botoes.add(editarButton,BorderLayout.CENTER);
-	    botoes.add(excluirButton,BorderLayout.EAST);
 	    
 	    add(texto,BorderLayout.CENTER);
 	    
-	    if(tipoCadastro == TipoCadastro.ADICIONAR_PRODUTO)
-	    	System.out.println("colocar botao aqui");
-	    else
-	    	add(botoes,BorderLayout.EAST);
-
+	    if(tipoCadastro == TipoCadastro.ADICIONAR_PRODUTO){
+	    	
+	    	adicionarButton = new JButton();
+			adicionarButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/add.png")));
+			adicionarButton.setToolTipText("Adicionar");
+			adicionarButton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					viewCadastro.addLista((ProdutoDTO) pojo);
+					view.dispose();
+				}
+			});
+			botoes.add(adicionarButton,BorderLayout.CENTER);
+	    }
+	    
+	    else{
+			editarButton = new JButton();
+			editarButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/edit.png")));
+			editarButton.setToolTipText("Editar");
+			editarButton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					viewCadastro.atualizaSelecionado(pojo);
+					view.dispose();
+				}
+			});
+			
+			excluirButton = new JButton();
+			excluirButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/Trash-icon.png")));
+			excluirButton.setToolTipText("Excluir");
+			excluirButton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					int op = JOptionPane.showConfirmDialog(null,"Deseja excluir o item selecionado?","Excluir",JOptionPane.YES_NO_OPTION);
+					if(op == 0){
+						viewCadastro.atualizaSelecionado(pojo);
+						viewCadastro.excluir(view);
+						view.atualizaTabela(pojo);
+					}
+				}
+			});
+			
+			botoes.add(editarButton,BorderLayout.CENTER);
+		    botoes.add(excluirButton,BorderLayout.EAST);
+	    }
+	    
+	    add(texto,BorderLayout.CENTER);
+	    add(botoes,BorderLayout.EAST);
 	}
 
 	public void updateData(POJO pojo, boolean isSelected, JTable table) {
