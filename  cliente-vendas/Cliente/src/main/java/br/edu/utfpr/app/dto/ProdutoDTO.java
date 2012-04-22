@@ -2,15 +2,15 @@ package br.edu.utfpr.app.dto;
 
 import br.edu.utfpr.util.IBean;
 
-public class ProdutoDTO implements IBean{
-private static final long serialVersionUID = 1L;
-	
+public class ProdutoDTO implements IBean {
+	private static final long serialVersionUID = 1L;
+
 	private Long id;
-	
+
 	private String descricao;
-	
+
 	private double preco;
-	
+
 	public ProdutoDTO() {
 	}
 
@@ -18,7 +18,7 @@ private static final long serialVersionUID = 1L;
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -38,5 +38,10 @@ private static final long serialVersionUID = 1L;
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
-	
+
+	@Override
+	public String toString() {
+		return this.descricao + " - R$" + this.getPreco();
+	}
+
 }
