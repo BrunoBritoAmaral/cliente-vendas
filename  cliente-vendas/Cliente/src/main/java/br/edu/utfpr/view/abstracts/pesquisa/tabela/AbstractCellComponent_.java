@@ -20,8 +20,6 @@ import br.edu.utfpr.app.dto.VendedorDTO;
 import br.edu.utfpr.util.IBean;
 import br.edu.utfpr.util.TipoCadastro;
 import br.edu.utfpr.view.AbstractView;
-import br.edu.utfpr.view.abstracts.cadastro.AbstractCadastroView;
-import br.edu.utfpr.view.abstracts.pesquisa.AbstractPesquisaView;
 
 public class AbstractCellComponent_<POJO extends IBean,V extends AbstractView<POJO>> extends JPanel {
 	POJO pojo;
@@ -73,7 +71,11 @@ public class AbstractCellComponent_<POJO extends IBean,V extends AbstractView<PO
 	    botoes.add(excluirButton,BorderLayout.EAST);
 	    
 	    add(texto,BorderLayout.CENTER);
-	    add(botoes,BorderLayout.EAST);
+	    
+	    if(tipoCadastro == TipoCadastro.ADICIONAR_PRODUTO)
+	    	System.out.println("colocar botao aqui");
+	    else
+	    	add(botoes,BorderLayout.EAST);
 
 	}
 
@@ -104,6 +106,10 @@ public class AbstractCellComponent_<POJO extends IBean,V extends AbstractView<PO
 		case PRODUTO:
 			ProdutoDTO p = (ProdutoDTO) pojo;
 			return p.getDescricao() + "  -  " + "R$ " + p.getPreco();
+		
+		case ADICIONAR_PRODUTO:
+			ProdutoDTO p2 = (ProdutoDTO) pojo;
+			return p2.getDescricao() + "  -  " + "R$ " + p2.getPreco();
 
 		default:
 			return "";

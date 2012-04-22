@@ -51,6 +51,9 @@ public class AbstractPesquisaView<POJO extends IBean,V extends AbstractView<POJO
 		
 		case PRODUTO:
 			return (Class<POJO>) new ProdutoDTO().getClass();
+		
+		case ADICIONAR_PRODUTO:
+			return (Class<POJO>) new ProdutoDTO().getClass();
 
 		default:
 			return null;
