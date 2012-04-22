@@ -4,7 +4,21 @@
  */
 package br.edu.utfpr.view.pedido;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
+import br.edu.utfpr.app.dto.ClienteDTO;
+import br.edu.utfpr.app.dto.PedidoDTO;
+import br.edu.utfpr.app.dto.ProdutoDTO;
+import br.edu.utfpr.app.dto.VendedorDTO;
+import br.edu.utfpr.util.Client;
+import br.edu.utfpr.util.Mensagem;
 
 
 /**
@@ -13,18 +27,77 @@ import javax.swing.ImageIcon;
  */
 public class PedidoView extends javax.swing.JFrame {
 
+	PedidoDTO selecionado;
+	List<VendedorDTO> vendedores;;
+	List<ClienteDTO> clientes;
+	List<ProdutoDTO> produtos;
+	Client<PedidoView> client;
 	
 	public PedidoView() {
-
+		client = new Client<PedidoView>(this);
 		initComponents();
-
+		populaTela();
     }
+
+	public void populaTela(){
+		textArea.setText(selecionado == null ? "" : selecionado.getDescricao());
+		
+		comboVendedores.setSelectedItem(null);
+		comboClientes.setSelectedItem(null);
+		
+		listProdutos.setModel(new AbstractListModel() {
+	       String[] strings = { "Nenhum produto adicionado"};
+	       public int getSize() { return strings.length; }
+	       public Object getElementAt(int i) { return strings[i]; }
+	    });
+		
+		populaCombos();
+		populaProdutos();
+	}
 	
-    
+	public void atualizaSelecionado(PedidoDTO pedidoDTO){
+		selecionado = pedidoDTO;
+		populaTela();
+	}
+	
+	private void populaCombos() {
+		try {
+			vendedores = (List<VendedorDTO>) client.enviar("12");
+			clientes = (List<ClienteDTO>) client.enviar("02");
+			
+			for (VendedorDTO v : vendedores) {
+				comboVendedores.insertItemAt(v.getNome(), vendedores.indexOf(v));
+			}
+			
+			for (ClienteDTO c : clientes) {
+				comboClientes.insertItemAt(c.getNome(), clientes.indexOf(c));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void populaProdutos(){
+		try {
+			produtos = (List<ProdutoDTO>) client.enviar("22");
+			
+		    listProdutos.setModel( new DefaultListModel());
+		    
+		    DefaultListModel modelo = ( DefaultListModel ) listProdutos.getModel();  
+			
+		    for ( int i = 0; i < produtos.size(); i++)  
+		        modelo.addElement( produtos.get(i) );
+		    
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+    	
         painelBotoes = new javax.swing.JPanel();
         jbNovo = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
@@ -32,18 +105,18 @@ public class PedidoView extends javax.swing.JFrame {
         painelConteudo = new javax.swing.JPanel();
         lbDescricao = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        textArea = new javax.swing.JTextArea();
         lbVendedor = new javax.swing.JLabel();
         comboVendedores = new javax.swing.JComboBox();
         jbClientes = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        comboClientes = new javax.swing.JComboBox();
         lbProdutos = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         listProdutos = new javax.swing.JList();
         btAdicionar = new javax.swing.JButton();
         btRemover = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         painelBotoes.setBackground(new java.awt.Color(255, 255, 255));
         painelBotoes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -105,10 +178,10 @@ public class PedidoView extends javax.swing.JFrame {
         lbDescricao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbDescricao.setText("Descrição:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        textArea.setColumns(20);
+        textArea.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        textArea.setRows(5);
+        jScrollPane1.setViewportView(textArea);
 
         lbVendedor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lbVendedor.setText("Vendedor:");
@@ -126,6 +199,7 @@ public class PedidoView extends javax.swing.JFrame {
             public Object getElementAt(int i) { return strings[i]; }
         });
         listProdutos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        
         jScrollPane2.setViewportView(listProdutos);
 
         btAdicionar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/add.png")));
@@ -162,7 +236,7 @@ public class PedidoView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(painelConteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(comboVendedores, 0, 329, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(comboClientes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(painelConteudoLayout.createSequentialGroup()
                         .addComponent(lbProdutos)
@@ -190,7 +264,7 @@ public class PedidoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelConteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbClientes)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelConteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbProdutos)
@@ -227,12 +301,17 @@ public class PedidoView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
-       
+       populaTela();
     }//GEN-LAST:event_jbNovoActionPerformed
    
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+    	if(!validaCampos())
+    		return;
     	
-    	
+    	ClienteDTO cliente = clientes.get(comboClientes.getSelectedIndex());
+    	VendedorDTO vendedor = vendedores.get(comboVendedores.getSelectedIndex());
+    	System.out.println("Cliente: "+cliente.getNome());
+    	System.out.println("Vendedor: "+vendedor.getNome());
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void jbPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPesquisarActionPerformed
@@ -247,17 +326,36 @@ public class PedidoView extends javax.swing.JFrame {
     private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
 
     }//GEN-LAST:event_btRemoverActionPerformed
-
+    
+    
+    public boolean validaCampos(){
+    	if(textArea.getText().trim().equals("")){
+    		Mensagem.show(this, "Informe a descrição", JOptionPane.INFORMATION_MESSAGE);
+    		return false;
+    	}
+    	
+    	if(comboVendedores.getSelectedItem() == null){
+    		Mensagem.show(this, "Selecione o vendedor", JOptionPane.INFORMATION_MESSAGE);
+    		return false;
+    	}
+    	
+    	if(comboClientes.getSelectedItem() == null){
+    		Mensagem.show(this, "Selecione o cliente", JOptionPane.INFORMATION_MESSAGE);
+    		return false;
+    	}
+    	
+    	return true;
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdicionar;
     private javax.swing.JButton btRemover;
     private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox comboVendedores;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox comboClientes;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea textArea;
     private javax.swing.JLabel jbClientes;
     private javax.swing.JButton jbNovo;
     private javax.swing.JButton jbPesquisar;

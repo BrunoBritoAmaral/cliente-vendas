@@ -6,12 +6,13 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import br.edu.utfpr.view.abstracts.cadastro.AbstractCadastroView;
 import br.edu.utfpr.view.principal.ClienteView;
 
-public class Client<POJO extends IBean> implements Serializable{
+public class Client<V extends JFrame> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -20,10 +21,15 @@ public class Client<POJO extends IBean> implements Serializable{
 	static ObjectInputStream ois;
 	static Socket client;
 	public String log;
-	public AbstractCadastroView<POJO> view;
+	public V view;
 	
-	public Client(AbstractCadastroView<POJO> view){
+	public Client(V view){
 		this.view = view;
+	}
+	
+	//Sobrecarga no metodo enviar para as listagens
+	public Object enviar(String protocolo) throws IOException{
+		return enviar(null,protocolo);
 	}
 	
     public Object enviar(Object o,String protocolo) throws IOException{
