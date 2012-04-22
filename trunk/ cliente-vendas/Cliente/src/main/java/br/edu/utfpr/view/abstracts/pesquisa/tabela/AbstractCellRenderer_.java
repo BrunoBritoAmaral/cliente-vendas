@@ -7,16 +7,17 @@ import javax.swing.table.TableCellRenderer;
 
 import br.edu.utfpr.util.IBean;
 import br.edu.utfpr.util.TipoCadastro;
+import br.edu.utfpr.view.AbstractView;
 import br.edu.utfpr.view.abstracts.cadastro.AbstractCadastroView;
 import br.edu.utfpr.view.abstracts.pesquisa.AbstractPesquisaView;
 
-public class AbstractCellRenderer_<POJO extends IBean> implements TableCellRenderer{
+public class AbstractCellRenderer_<POJO extends IBean,V extends AbstractView<POJO>> implements TableCellRenderer{
 	
-	AbstractCellComponent_<POJO> abstractComponent;
+	AbstractCellComponent_<POJO,V> abstractComponent;
 	POJO pojo;
 	
-	public AbstractCellRenderer_(AbstractPesquisaView<POJO> view,AbstractCadastroView<POJO> viewCadastro,TipoCadastro tipoCadastro){
-		abstractComponent = new AbstractCellComponent_<POJO>(view,viewCadastro ,tipoCadastro);
+	public AbstractCellRenderer_(V view,V viewCadastro,TipoCadastro tipoCadastro){
+		abstractComponent = new AbstractCellComponent_<POJO,V>(view,viewCadastro ,tipoCadastro);
 	}
 	
 	@Override

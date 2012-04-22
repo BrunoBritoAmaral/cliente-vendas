@@ -4,5 +4,6 @@ public enum TipoCadastro {
 	CLIENTE,
 	VENDEDOR,
 	PEDIDO,
-	PRODUTO;
+	PRODUTO,
+	ADICIONAR_PRODUTO
 }

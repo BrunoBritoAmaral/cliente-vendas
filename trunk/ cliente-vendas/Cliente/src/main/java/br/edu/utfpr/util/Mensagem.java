@@ -4,6 +4,8 @@ import java.awt.Component;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import br.edu.utfpr.view.AbstractView;
+
 /** 
  * @author Luan Malaguti Reffatti
  */
