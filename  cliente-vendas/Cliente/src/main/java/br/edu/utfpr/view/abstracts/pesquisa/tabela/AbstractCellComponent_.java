@@ -125,7 +125,7 @@ public class AbstractCellComponent_<POJO extends IBean,V extends AbstractView<PO
 			
 		case PEDIDO:
 			PedidoDTO pedido = (PedidoDTO) pojo;
-			return pedido.getDescricao();
+			return pedido.getDescricao() + "  -  Total em produtos: R$" + getValorTotal();
 		
 		case ADICIONAR_PRODUTO:
 			ProdutoDTO p2 = (ProdutoDTO) pojo;
@@ -135,5 +135,16 @@ public class AbstractCellComponent_<POJO extends IBean,V extends AbstractView<PO
 			return "";
 
 		}
+	}
+	
+	public String getValorTotal(){
+		PedidoDTO pedido = (PedidoDTO) pojo;
+		double soma =0;
+		
+		for (ProdutoDTO p : pedido.getProdutos()) {
+			soma = soma + p.getPreco();
+		}
+		
+		return String.valueOf(soma);
 	}
 }
