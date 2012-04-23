@@ -154,6 +154,8 @@ public class AbstractPesquisaView<POJO extends IBean,V extends AbstractView<POJO
 			return "vendedores";		
 		case PRODUTO:
 			return "produtos";
+		case PEDIDO:
+			return "pedidos";	
 		default:
 			return "";
 		}
