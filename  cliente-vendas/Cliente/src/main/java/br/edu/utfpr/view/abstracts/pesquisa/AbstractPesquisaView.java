@@ -9,7 +9,10 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 import br.edu.utfpr.app.dto.ClienteDTO;
+import br.edu.utfpr.app.dto.PedidoDTO;
 import br.edu.utfpr.app.dto.ProdutoDTO;
 import br.edu.utfpr.app.dto.VendedorDTO;
 import br.edu.utfpr.util.IBean;
@@ -51,6 +54,9 @@ public class AbstractPesquisaView<POJO extends IBean,V extends AbstractView<POJO
 		
 		case PRODUTO:
 			return (Class<POJO>) new ProdutoDTO().getClass();
+		
+		case PEDIDO:
+			return (Class<POJO>) new PedidoDTO().getClass();
 		
 		case ADICIONAR_PRODUTO:
 			return (Class<POJO>) new ProdutoDTO().getClass();

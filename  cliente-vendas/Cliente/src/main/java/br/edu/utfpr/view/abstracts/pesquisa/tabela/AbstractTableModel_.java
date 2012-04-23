@@ -3,6 +3,7 @@ package br.edu.utfpr.view.abstracts.pesquisa.tabela;
 import java.util.List;
 
 import br.edu.utfpr.app.dto.ClienteDTO;
+import br.edu.utfpr.app.dto.PedidoDTO;
 import br.edu.utfpr.app.dto.ProdutoDTO;
 import br.edu.utfpr.app.dto.VendedorDTO;
 import br.edu.utfpr.util.IBean;
@@ -40,6 +41,9 @@ public class AbstractTableModel_<POJO extends IBean> extends javax.swing.table.A
 		
 		case PRODUTO:
 			return (Class<POJO>) new ProdutoDTO().getClass();
+		
+		case PEDIDO:
+			return (Class<POJO>) new PedidoDTO().getClass();
 		
 		case ADICIONAR_PRODUTO:
 			return (Class<POJO>) new ProdutoDTO().getClass();

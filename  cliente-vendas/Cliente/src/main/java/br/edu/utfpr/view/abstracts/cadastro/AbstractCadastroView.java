@@ -4,9 +4,9 @@
  */
 package br.edu.utfpr.view.abstracts.cadastro;
 
-import java.util.List;
 import java.awt.Component;
 import java.io.IOException;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -21,7 +21,6 @@ import br.edu.utfpr.util.Mensagem;
 import br.edu.utfpr.util.TipoCadastro;
 import br.edu.utfpr.view.AbstractView;
 import br.edu.utfpr.view.abstracts.pesquisa.AbstractPesquisaView;
-import br.edu.utfpr.view.principal.ClienteView;
 
 /**
  *
@@ -367,14 +366,10 @@ public class AbstractCadastroView<POJO extends IBean> extends JFrame implements 
     // End of variables declaration//GEN-END:variables
 
 	@Override
-	public void addLista(ProdutoDTO pojo) {
-		
-	}
+	public void addLista(ProdutoDTO pojo) {	}
 
 	@Override
-	public void atualizaTabela(POJO pojo) {
-		
-	}
+	public void atualizaTabela(POJO pojo) {	}
 
 	
 }
