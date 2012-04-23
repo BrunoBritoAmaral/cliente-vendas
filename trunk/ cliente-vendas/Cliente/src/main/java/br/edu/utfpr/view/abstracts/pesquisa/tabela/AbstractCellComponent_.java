@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.border.SoftBevelBorder;
 
 import br.edu.utfpr.app.dto.ClienteDTO;
+import br.edu.utfpr.app.dto.PedidoDTO;
 import br.edu.utfpr.app.dto.ProdutoDTO;
 import br.edu.utfpr.app.dto.VendedorDTO;
 import br.edu.utfpr.util.IBean;
@@ -121,6 +122,10 @@ public class AbstractCellComponent_<POJO extends IBean,V extends AbstractView<PO
 		case PRODUTO:
 			ProdutoDTO p = (ProdutoDTO) pojo;
 			return p.getDescricao() + "  -  " + "R$ " + p.getPreco();
+			
+		case PEDIDO:
+			PedidoDTO pedido = (PedidoDTO) pojo;
+			return pedido.getDescricao();
 		
 		case ADICIONAR_PRODUTO:
 			ProdutoDTO p2 = (ProdutoDTO) pojo;
