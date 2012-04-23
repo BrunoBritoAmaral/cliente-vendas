@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -62,8 +63,8 @@ public class PedidoView<POJO extends IBean> extends JFrame implements AbstractVi
 	private void populaCombos(boolean carregar) {
 		
 		if(!carregar){
-			comboClientes.setSelectedItem(pedido == null ? null : pedido.getCliente());
-			comboVendedores.setSelectedItem(pedido == null ? null : pedido.getVendedor());
+			comboClientes.setSelectedItem(pedido == null ? null : clientes.indexOf(pedido.getCliente()));
+			comboVendedores.setSelectedItem(pedido == null ? null : vendedores.indexOf(pedido.getVendedor()));
 		}
 		else{
 			clientes = new ArrayList<ClienteDTO>();
@@ -91,7 +92,7 @@ public class PedidoView<POJO extends IBean> extends JFrame implements AbstractVi
 	
 	public void populaProdutos(){
 		if(pedido == null || pedido.getProdutos().isEmpty()){
-			listProdutos.setModel(new javax.swing.AbstractListModel() {
+			listProdutos.setModel(new AbstractListModel() {
 				String[] strings = { "Nenhum produto adicionado" };
 				public int getSize() {return strings.length;}
 				public Object getElementAt(int i) {return strings[i];}
