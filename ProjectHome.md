@@ -1,0 +1,1 @@
+Cliente de um sistema distribuido java utilizando-se de sockets para comunicação com o servidor
